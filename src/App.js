@@ -6,8 +6,8 @@ import Signin from "./Signin";
 function App() {
   return (
     <>
-      <LandingHeader />
-      <LandingSearch/>
+      {/* <LandingHeader />
+      <LandingSearch/> */}
       <Signin/>
     </>
   );

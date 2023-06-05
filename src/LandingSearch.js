@@ -25,6 +25,7 @@ const LandingSearch = () => {
     setYears(event.target.value);
   };
   const jobcategory = ["Remote","Fresher", "MNC", "Data Science","Startup","HR","Sales","Software Development","Project Manager"];
+  const companycategory = ["MNCs","Product", "Banking & Finance", "Hospitality","Fintech","Startups","Edtech","Internet","B2C"];
   const settings = {
     dots: true,
     infinite: true,
@@ -132,13 +133,7 @@ const LandingSearch = () => {
         </Grid>
       </Paper>
     </Box>
-      {/* <Box sx={{ mt: 5, display: "flex", flexWrap: "wrap", "& > *": { m: 1 } }}>
-        {jobcategory.map((job, index) => (
-          <Button key={index} variant="outlined" size="large">
-            {job}
-          </Button>
-        ))}
-      </Box> */}
+     
       <Box sx={{ mt: 5, display: 'flex', flexWrap: 'wrap', '& > *': { m: 1 } }}>
   {jobcategory.map((job, index) => (
     <Button key={index} variant="outlined" size="large" sx={{ m: 1 }}>
@@ -149,10 +144,10 @@ const LandingSearch = () => {
 
 <Box sx={{ mt: 5 }}>
       <Slider {...settings}>
-        {jobcategory.map((job, index) => (
+        {companycategory.map((company, index) => (
           <Box key={index} sx={{ p: 1 }}>
-            <Button variant="outlined" size="large" sx={{ height: '100px', width: '200px' }}>
-              {job}
+            <Button variant="text" size="large" sx={{ height: '100px', width: '200px', backgroundColor:"#ff80ab" ,color:"white"}}>
+              {company}
             </Button>
           </Box>
         ))}
