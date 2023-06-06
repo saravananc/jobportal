@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import '../src/App.css';
+import Box from '@mui/material/Box';
+
+import Grid from '@mui/material/Unstable_Grid2';
+import { Paper } from '@mui/material';
+
+
 import {
   Stepper,
   Step,
@@ -7,15 +14,13 @@ import {
   Typography,
   Container,
   TextField,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+
 } from '@mui/material';
 
 const steps = ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5']; // Define the steps of the form
+const Signup=()=>
+{
 
-const Signup = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({
     // Initial form data state
@@ -45,8 +50,7 @@ const Signup = () => {
     screen5Field1: '',
     screen5Field2: '',
   });
-  const [openDialog, setOpenDialog] = useState(false); // State for controlling the dialog
-
+ 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
       handleSubmit(); // Call handleSubmit function when reaching the last step
@@ -72,9 +76,7 @@ const Signup = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('API response:', data);
-        // You can handle the API response here (e.g., display success message, redirect, etc.)
-        // For now, we will display a "Thank you" message
-        setOpenDialog(true); // Open the dialog to view the resume
+        
       })
       .catch((error) => {
         console.error('API error:', error);
@@ -192,25 +194,17 @@ const Signup = () => {
     }
   };
 
-  const handleViewResume = () => {
-    setOpenDialog(true);
-  };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
 
-  return (
-    
+ 
+
+  return(
     <>
-   <Container maxWidth="sm" sx={{ bgcolor: '#cfe8fc', textAlign:"center",mt:5 }}>
-   <Typography variant="h3" gutterBottom>
-       Registration Form
-      </Typography>
-      </Container>
-
-
-    <Container maxWidth="sm" sx={{mt:5}}>
+      <Box >
+      <Grid container spacing={1}>
+        <Grid xs={6} md={6}>
+          <Paper>
+          <Container maxWidth="sm">
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -240,37 +234,151 @@ const Signup = () => {
                   Next
                 </Button>
               )}
-              {activeStep === steps.length - 1 && (
-                <Button variant="outlined" color="primary" onClick={handleViewResume}>
-                  View Resume
-                </Button>
-              )}
+             
             </div>
           </>
         )}
       </div>
 
-      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md">
-        <DialogTitle>Your Resume</DialogTitle>
-        <DialogContent>
-          {/* Display the form data as resume format */}
-          <Typography variant="h6">Personal Information</Typography>
-          <Typography>
-            Name: {formData.firstName} {formData.lastName}
-          </Typography>
-          <Typography>Company: {formData.companyName}</Typography>
-          <Typography>Designation: {formData.designation}</Typography>
-          {/* Add more fields based on your resume format */}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+     
     </Container>
+          </Paper>
+        </Grid>
+        <Grid xs={6} md={6}>
+        <Paper>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
+
+<div class="container">
+  <div class="header">
+    <div class="full-name">
+      <span class="first-name">{formData.firstName} </span> 
+      <span class="last-name">{formData.lastName}</span>
+    </div>
+    <div class="contact-info">
+      <span class="email">Email: </span>
+      <span class="email-val">john.doe@gmail.com</span>
+      <span class="separator"></span>
+      <span class="phone">Phone: </span>
+      <span class="phone-val">111-222-3333</span>
+    </div>
+    
+    <div class="about">
+      <span class="position">Front-End Developer </span>
+      <span class="desc">
+        I am a front-end developer with more than 3 years of experience writing html, css, and js. I'm motivated, result-focused and seeking a successful team-oriented company with opportunity to grow. 
+      </span>
+    </div>
+  </div>
+   <div class="details">
+    <div class="section">
+      <div class="section__title">Experience</div>
+      <div class="section__list">
+        <div class="section__list-item">
+          <div class="left">
+            <div class="name">KlowdBox</div>
+            <div class="addr">San Fr, CA</div>
+            <div class="duration">Jan 2011 - Feb 2015</div>
+          </div>
+          <div class="right">
+            <div class="name">Fr developer</div>
+            <div class="desc">did This and that</div>
+          </div>
+        </div>
+                <div class="section__list-item">
+          <div class="left">
+            <div class="name">Akount</div>
+            <div class="addr">San Monica, CA</div>
+            <div class="duration">Jan 2011 - Feb 2015</div>
+          </div>
+          <div class="right">
+            <div class="name">Fr developer</div>
+            <div class="desc">did This and that</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="section">
+      <div class="section__title">Education</div>
+      <div class="section__list">
+        <div class="section__list-item">
+          <div class="left">
+            <div class="name">Sample Institute of technology</div>
+            <div class="addr">San Fr, CA</div>
+            <div class="duration">Jan 2011 - Feb 2015</div>
+          </div>
+          <div class="right">
+            <div class="name">Fr developer</div>
+            <div class="desc">did This and that</div>
+          </div>
+        </div>
+        <div class="section__list-item">
+          <div class="left">
+            <div class="name">Akount</div>
+            <div class="addr">San Monica, CA</div>
+            <div class="duration">Jan 2011 - Feb 2015</div>
+          </div>
+          <div class="right">
+            <div class="name">Fr developer</div>
+            <div class="desc">did This and that</div>
+          </div>
+        </div>
+
+      </div>
+      
+  </div>
+     <div class="section">
+      <div class="section__title">Projects</div> 
+       <div class="section__list">
+         <div class="section__list-item">
+           <div class="name">DSP</div>
+           <div class="text">I am a front-end developer with more than 3 years of experience writing html, css, and js. I'm motivated, result-focused and seeking a successful team-oriented company with opportunity to grow.</div>
+         </div>
+         
+         <div class="section__list-item">
+                    <div class="name">DSP</div>
+           <div class="text">I am a front-end developer with more than 3 years of experience writing html, css, and js. I'm motivated, result-focused and seeking a successful team-oriented company with opportunity to grow. <a href="/login">link</a>
+           </div>
+         </div>
+       </div>
+    </div>
+     <div class="section">
+       <div class="section__title">Skills</div>
+       <div class="skills">
+         <div class="skills__item">
+           <div class="left"><div class="name">
+             Javascript
+             </div></div>
+          
+         </div>
+         
+       </div>
+       <div class="skills__item">
+           <div class="left"><div class="name">
+             CSS</div></div>
+          
+         </div>
+         
+       </div>
+     <div class="section">
+     <div class="section__title">
+       Interests
+       </div>
+       <div class="section__list">
+         <div class="section__list-item">
+                  Football, programming.
+          </div>
+       </div>
+     </div>
+     </div>
+  </div>
+
+          </Paper>
+        </Grid>
+        
+      </Grid>
+    </Box>
     </>
   );
-};
-
+}
 export default Signup;
