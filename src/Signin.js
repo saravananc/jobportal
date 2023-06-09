@@ -13,6 +13,52 @@ import React, { useState } from "react";
 import { Imagesfile } from "./Images/Images";
 import { Player } from "@lottiefiles/react-lottie-player";
 
+import { styled } from '@mui/material/styles';
+const WallPaper = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  width: '500px', // Adjust the width as needed
+  height: '500px ', // Adjust the height as needed
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  overflow: 'hidden',
+  background: 'linear-gradient(rgb(255, 38, 142) 0%, rgb(255, 105, 79) 100%)',
+  transition: 'all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s',
+  '&:before': {
+    content: '""',
+    width: '140%',
+    height: '140%',
+    position: 'absolute',
+    top: '-50%',
+    right: '-50%',
+    background:
+      'radial-gradient(at center center, rgb(62, 79, 249) 0%, rgba(62, 79, 249, 0) 64%)',
+  },
+  '&:after': {
+    content: '""',
+    width: '140%',
+    height: '140%',
+    position: 'absolute',
+    bottom: '-50%',
+    left: '-30%',
+    background:
+      'radial-gradient(at center center, rgb(247, 237, 225) 0%, rgba(247, 237, 225, 0) 70%)',
+    transform: 'rotate(30deg)',
+  },
+}));
+
+const Widget = styled('div')(({ theme }) => ({
+  padding: 16,
+  borderRadius: 16,
+  width: 343,
+  maxWidth: '100%',
+  margin: 'auto',
+  position: 'relative',
+  zIndex: 1,
+  backgroundColor:
+    theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.4)',
+  backdropFilter: 'blur(40px)',
+}));
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,34 +125,26 @@ const Signin = () => {
           md={6}
           sx={{ display: { xs: "none", sm: "none", md: "block" } }}
         >
-          <Paper
-            elevation={0}
-            // style={{
-            //   backgroundImage: `url(${Imagesfile.Signinani})`,
-            //   backgroundSize: "100% 100%",
-            // }}
-            // sx={{ height: "80vh", width: "100%" }}
-          >
+          <Paper elevation={0}>
             <Player
               autoplay
               loop
               src="https://assets3.lottiefiles.com/packages/lf20_g96md7ur.json"
               style={{ height: "500px", width: "500px" }}
-            >
-              
-            </Player>
+            ></Player>
           </Paper>
         </Grid>
         <Grid
           item
           xs={12}
           md={6}
-          style={{
-            backgroundImage: `url(${Imagesfile.Signinbg})`,
-            backgroundSize: "100% 100%",
-          }}
+          // style={{
+          //   backgroundImage: `url(${Imagesfile.Signinbg})`,
+          //   backgroundSize: "100% 100%",
+          // }}
         >
-          <Box sx={{ width: "100%", textAlign: "center", mt: 5, fw: 10 }}>
+
+          {/* <Box sx={{ width: "100%", textAlign: "center", mt: 5, fw: 10 }}>
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Log In Here!
             </Typography>
@@ -159,7 +197,7 @@ const Signin = () => {
                 <Button
                   fullWidth
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   onClick={handleSignIn}
                 >
                   Signin
@@ -181,7 +219,101 @@ const Signin = () => {
                 </Typography>
               </Grid>
             </Grid>
+          </Box> */}
+            <Box sx={{ width: '100%', overflow: 'hidden'}}>
+      <WallPaper >
+        <Widget sx={{marginTop:"50px"}}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%'
+            }}
+          >
+            <Box>
+              <Box
+                sx={{
+                  width: '100%',
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  mt: 5,
+                  fontWeight: 'bold',
+                }}
+              >
+                <Typography variant="h4">Log In Here!</Typography>
+              </Box>
+              <Grid
+                sx={{ mt: 5 }}
+                container
+                spacing={3}
+                direction="column"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item xs={12}>
+                  <TextField size="small" label="Email"
+                  
+                  value={email}
+                  onChange={handleEmailChange}
+                  error={
+                    error !== "" &&
+                    (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+                  }
+                  helperText={
+                    error !== "" &&
+                    (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+                      ? "Invalid email format."
+                      : ""
+                  } />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    size="small"
+                    label="Password"
+                   
+                    type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    error={error !== "" && !password}
+                    helperText={
+                      error !== "" && !password ? "Password is required." : ""
+                    }
+                  />
+                </Grid>
+                {error && (
+                <Grid item xs={12}>
+                  <Typography color="error">{error}</Typography>
+                </Grid>
+              )}
+                <Grid item xs={12}>
+                  <Button fullWidth variant="contained"
+                   color="primary"
+                   onClick={handleSignIn}>
+                    Sign In
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body2">
+                    <Link href="#" color="inherit">
+                      Forgot password?
+                    </Link>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body2">
+                    Don't have an account?{' '}
+                    <Link href="#" color="inherit">
+                      Sign Up
+                    </Link>
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
+        </Widget>
+      </WallPaper>
+    </Box>
         </Grid>
       </Grid>
     </>

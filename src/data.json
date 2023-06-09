@@ -1,0 +1,124 @@
+{
+  "contact": {
+    "name": "Name",
+    "photoUrl": "https://cdn0.iconfinder.com/data/icons/user-pictures/100/malecostume-512.png",
+    "location": "Tiruchengode Namakkal",
+    "phone": "+91 0123456789",
+    "email": "email@example.com",
+    "linkedin": "linkedin.com/in/name",
+    "github": "github.com/name"
+  },
+
+  "objective": "Accomplished leader in marketing communications seeking a new career path with a nonprofit organization. I am looking for an opportunity where I can use apply my passion for philanthropy and use my professional experience to drive positive change in my community.",
+
+  "education": [
+    {
+      "year": "Aug 2014 - Aug 2018",
+      "course": "B.E. (Computer Science & Engineering)",
+      "institution": "Example college of engineering" ,
+      "university": "Anna University",
+      "percentage": "87"
+    },
+    {
+      "year": "May 2014",
+      "course": "12th (PCM + CS)",
+      "institution": "Example School",
+      "university": "MATRIC",
+      "percentage": "92.5"
+    },
+    {
+      "year": "May 2012",
+      "course": "10th",
+      "institution": "Random Public School, Tamilnadu",
+      "university": "MATRIC",
+      "percentage": "10"
+    }
+  ],
+
+  "languages": [
+    { "language": "English", "level": 5 },
+    { "language": "Tamil", "level": 5 },
+    { "language": "Hindi", "level": 3 }
+  ],
+
+  "experience": [
+    {
+      "year": "Aug 2017 - Dec 2017",
+      "company": "ABC Mobile App Pvt. Ltd.",
+      "position": "Backend & Frontend Developer",
+      "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores."
+    },
+    {
+      "year": "July 2017 - Dec 2017",
+      "company": "Random Company Pvt. Ltd.",
+      "position": "Application Developer",
+      "description": "Created Android applications using Android Studio and Kotlin."
+    }
+  ],
+
+  "certifications": [
+    {
+      "year": "Jul 2016 - Oct 2016",
+      "institution": "Google Cretification Program",
+      "course": "Mobile App Development",
+      "description": "This training was in the field of android app development.",
+      "score": "A+"
+    },
+    {
+      "year": "Jun 2016 - Dev 2016",
+      "institution": "Cisco",
+      "course": "Advanced Networking",
+      "description": "The training program consisted of varoius types of networking technologies, routing techniques, etc",
+      "score": "85%"
+    }
+  ],
+
+  "skills": [
+    "C",
+    "C++",
+    "Java",
+    "HTML5",
+    "CSS",
+    "JavaScript",
+    "jQuery",
+    "Node.js",
+    "MySQL",
+    "Android",
+    "iOS",
+    "Maeketing",
+    "Sales"
+  ],
+
+  "projects": [
+    {
+      "title": "Project-1",
+      "link": "https://project1.myapp.com",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+    },
+    {
+      "title": "Project-2",
+      "link": "https://project-2.random.com",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+    {
+      "title": "Some Random Project",
+      "link": "https://project-3.muapp.com",
+      "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
+    }
+  ],
+
+  "projects_link": "https://some-more-projects.github.com",
+
+  "workshops": [
+    {
+      "year": "Sep 2014",
+      "description": "Attended a 2-day workshop on Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    },
+    {
+      "year": "Nov 2018",
+      "description": "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text."
+    }
+  ]
+
+  
+}

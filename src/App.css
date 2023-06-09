@@ -1,6 +1,10 @@
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-  padding: 8.5px 14px !important;
+.css-10mg1vw-MuiStepper-root {
+  padding-top: 20px !important;
 }
+.css-2ulfj5-MuiTypography-root {
+  margin: 15px !important;
+}
+
 
 * {
   margin: 0;
@@ -13,7 +17,7 @@ html {
 
 body {
   min-height: 100%;
-  background: #eee;
+  background: #7BB4F6;
   font-family: "Lato", sans-serif;
   font-weight: 400;
   color: #222;
@@ -24,9 +28,9 @@ body {
 
 .container {
   max-width: 700px;
-  background: #fff;
+  background: #f7f4f4;
   margin: 0px auto 0px;
-  box-shadow: 1px 1px 2px #dad7d7;
+  box-shadow: 1px 1px 2px #fdfdfd;
   border-radius: 3px;
   padding: 40px;
 }
@@ -68,10 +72,12 @@ body {
     display: inline-block;
     margin-right: 10px;
     text-decoration: underline;
+    text-transform: uppercase;
   }
 }
 
 .details {
+  margin-top: 20px;
   line-height: 20px;
 
   .section {
@@ -91,7 +97,7 @@ body {
   }
 
   .section__list-item {
-    margin-bottom: 40px;
+    margin-bottom: 25px;
   }
 
   .section__list-item:last-of-type {
