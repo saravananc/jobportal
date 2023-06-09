@@ -13,51 +13,51 @@ import React, { useState } from "react";
 import { Imagesfile } from "./Images/Images";
 import { Player } from "@lottiefiles/react-lottie-player";
 
-import { styled } from '@mui/material/styles';
-const WallPaper = styled('div')(({ theme }) => ({
-  position: 'absolute',
-  width: '500px', // Adjust the width as needed
-  height: '500px ', // Adjust the height as needed
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  overflow: 'hidden',
-  background: 'linear-gradient(rgb(255, 38, 142) 0%, rgb(255, 105, 79) 100%)',
-  transition: 'all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s',
-  '&:before': {
+import { styled } from "@mui/material/styles";
+const WallPaper = styled("div")(({ theme }) => ({
+  position: "absolute",
+  width: "500px", // Adjust the width as needed
+  height: "500px ", // Adjust the height as needed
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  overflow: "hidden",
+  background: "linear-gradient(rgb(255, 38, 142) 0%, rgb(255, 105, 79) 100%)",
+  transition: "all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s",
+  "&:before": {
     content: '""',
-    width: '140%',
-    height: '140%',
-    position: 'absolute',
-    top: '-50%',
-    right: '-50%',
+    width: "140%",
+    height: "140%",
+    position: "absolute",
+    top: "-50%",
+    right: "-50%",
     background:
-      'radial-gradient(at center center, rgb(62, 79, 249) 0%, rgba(62, 79, 249, 0) 64%)',
+      "radial-gradient(at center center, rgb(62, 79, 249) 0%, rgba(62, 79, 249, 0) 64%)",
   },
-  '&:after': {
+  "&:after": {
     content: '""',
-    width: '140%',
-    height: '140%',
-    position: 'absolute',
-    bottom: '-50%',
-    left: '-30%',
+    width: "140%",
+    height: "140%",
+    position: "absolute",
+    bottom: "-50%",
+    left: "-30%",
     background:
-      'radial-gradient(at center center, rgb(247, 237, 225) 0%, rgba(247, 237, 225, 0) 70%)',
-    transform: 'rotate(30deg)',
+      "radial-gradient(at center center, rgb(247, 237, 225) 0%, rgba(247, 237, 225, 0) 70%)",
+    transform: "rotate(30deg)",
   },
 }));
 
-const Widget = styled('div')(({ theme }) => ({
+const Widget = styled("div")(({ theme }) => ({
   padding: 16,
   borderRadius: 16,
   width: 343,
-  maxWidth: '100%',
-  margin: 'auto',
-  position: 'relative',
+  maxWidth: "100%",
+  margin: "auto",
+  position: "relative",
   zIndex: 1,
   backgroundColor:
-    theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.4)',
-  backdropFilter: 'blur(40px)',
+    theme.palette.mode === "dark" ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.4)",
+  backdropFilter: "blur(40px)",
 }));
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -118,7 +118,7 @@ const Signin = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      <Grid container spacing={1} sx={{ mt: 5 }}>
+      <Grid container spacing={1} sx={{ mt: 1 }}>
         <Grid
           item
           xs={12}
@@ -138,89 +138,102 @@ const Signin = () => {
           item
           xs={12}
           md={6}
+          sx={{
+            background: "linear-gradient(45deg, #B2EBF2 10%, #E1F5FE 90%)",
+          }}
+
           // style={{
           //   backgroundImage: `url(${Imagesfile.Signinbg})`,
           //   backgroundSize: "100% 100%",
           // }}
         >
-
-          {/* <Box sx={{ width: "100%", textAlign: "center", mt: 5, fw: 10 }}>
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              Log In Here!
-            </Typography>
-          </Box>
-          <Box sx={{ mt: 5 }}>
-            <Grid
-              container
-              spacing={3}
-              direction={"column"}
-              justify={"center"}
-              alignItems={"center"}
-            >
-              <Grid item xs={12}>
-                <TextField
-                  size="small"
-                  label="Email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  error={
-                    error !== "" &&
-                    (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
-                  }
-                  helperText={
-                    error !== "" &&
-                    (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
-                      ? "Invalid email format."
-                      : ""
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  size="small"
-                  label="Password"
-                  type="password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  error={error !== "" && !password}
-                  helperText={
-                    error !== "" && !password ? "Password is required." : ""
-                  }
-                />
-              </Grid>
-              {error && (
+          <Paper
+            elevation={4}
+            sx={{
+              height: "500px",
+              width: "400px",
+              background:
+                "radial-gradient(circle at center, rgba(216, 216, 216, 0.5) 0%, rgba(227, 228, 229, 0.2) 50%, rgba(227, 228, 229, 0) 100%)",
+            }}
+          >
+            <Box sx={{ width: "100%", textAlign: "center", mt: 5, fw: 10 }}>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Log In Here!
+              </Typography>
+            </Box>
+            <Box sx={{ mt: 5 }}>
+              <Grid
+                container
+                spacing={3}
+                direction={"column"}
+                justify={"center"}
+                alignItems={"center"}
+              >
                 <Grid item xs={12}>
-                  <Typography color="error">{error}</Typography>
+                  <TextField
+                    size="small"
+                    label="Email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    error={
+                      error !== "" &&
+                      (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+                    }
+                    helperText={
+                      error !== "" &&
+                      (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+                        ? "Invalid email format."
+                        : ""
+                    }
+                  />
                 </Grid>
-              )}
-              <Grid item xs={12}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSignIn}
-                >
-                  Signin
-                </Button>
+                <Grid item xs={12}>
+                  <TextField
+                    size="small"
+                    label="Password"
+                    type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    error={error !== "" && !password}
+                    helperText={
+                      error !== "" && !password ? "Password is required." : ""
+                    }
+                  />
+                </Grid>
+                {error && (
+                  <Grid item xs={12}>
+                    <Typography color="error">{error}</Typography>
+                  </Grid>
+                )}
+                <Grid item xs={12}>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSignIn}
+                  >
+                    Signin
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body2">
+                    <Link href="#" color="inherit">
+                      Forgot password?
+                    </Link>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body2">
+                    Don't have an account?{" "}
+                    <Link href="#" color="inherit">
+                      Sign Up
+                    </Link>
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body2">
-                  <Link href="#" color="inherit">
-                    Forgot password?
-                  </Link>
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body2">
-                  Don't have an account?{" "}
-                  <Link href="#" color="inherit">
-                    Sign Up
-                  </Link>
-                </Typography>
-              </Grid>
-            </Grid>
-          </Box> */}
-            <Box sx={{ width: '100%', overflow: 'hidden'}}>
+            </Box>
+          </Paper>
+          {/* <Box sx={{ width: '100%', overflow: 'hidden'}}>
       <WallPaper >
         <Widget sx={{marginTop:"50px"}}>
           <Box
@@ -313,7 +326,7 @@ const Signin = () => {
           </Box>
         </Widget>
       </WallPaper>
-    </Box>
+    </Box> */}
         </Grid>
       </Grid>
     </>
