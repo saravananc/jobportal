@@ -47,15 +47,15 @@ const LandingSearch = () => {
   ];
 
   const companycategory = [
-    { category: "MNCs", image: Imagesfile.mnc },
-    { category: "Product", image: Imagesfile.mnc },
-    { category: "Banking & Finance", image: Imagesfile.Bank },
-    { category: "Hospitality", image: Imagesfile.Edu },
-    { category: "Fintech", image: Imagesfile.Fintech },
-    { category: "Startups", image: Imagesfile.B2C },
-    { category: "Edtech", image: Imagesfile.Edu },
-    { category: "Internet", image: Imagesfile.Fintech },
-    { category: "B2C", image: Imagesfile.B2C },
+    { category: "MNCs", image: Imagesfile.mnc,image1: Imagesfile.Bank,image2: Imagesfile.Fintech },
+    { category: "Product", image: Imagesfile.mnc,image1: Imagesfile.Fintech,image2: Imagesfile.Edu  },
+    { category: "Banking & Finance", image: Imagesfile.Bank,image1: Imagesfile.B2C,image2: Imagesfile.mnc  },
+    { category: "Hospitality", image: Imagesfile.Edu,image1: Imagesfile.Fintech,image2: Imagesfile.Bank },
+    { category: "Fintech", image: Imagesfile.Fintech,image1: Imagesfile.Edu,image2: Imagesfile.mnc },
+    { category: "Startups", image: Imagesfile.B2C,image1: Imagesfile.Fintech,image2: Imagesfile.Edu  },
+    { category: "Edtech", image: Imagesfile.Edu,image1: Imagesfile.B2C,image2: Imagesfile.mnc  },
+    { category: "Internet", image: Imagesfile.Fintech,image1: Imagesfile.Bank,image2: Imagesfile.Fintech  },
+    { category: "B2C", image: Imagesfile.B2C,image1: Imagesfile.Fintech,image2: Imagesfile.Edu },
   ];
 
   const settings = {
@@ -382,8 +382,8 @@ const LandingSearch = () => {
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       display: "inline-block",
-                      border: "1px solid",
-                      borderColor:"gray",
+                      border: "1px solid white",
+                     
                       borderRadius: "10px",
                     }}
                   />
@@ -393,13 +393,12 @@ const LandingSearch = () => {
                       width: "60px",
                       padding: "10px",
                       margin: "10px",
-                      backgroundImage: `url(${company.image})`,
+                      backgroundImage: `url(${company.image1})`,
                       backgroundRepeat: "no-repeat",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       display: "inline-block",
-                      border: "1px solid",
-                      borderColor:"gray",
+                      border: "1px solid white",
                       borderRadius: "10px",
                     }}
                   />
@@ -409,13 +408,12 @@ const LandingSearch = () => {
                       width: "60px",
                       padding: "10px",
                       margin: "10px",
-                      backgroundImage: `url(${company.image})`,
+                      backgroundImage: `url(${company.image2})`,
                       backgroundRepeat: "no-repeat",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       display: "inline-block",
-                      border: "1px solid",
-                      borderColor:"gray",
+                      border: "1px solid white",
                       borderRadius: "10px",
                     }}
                   />
