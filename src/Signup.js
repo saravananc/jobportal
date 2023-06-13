@@ -7,9 +7,10 @@ import '../src/styles/App.scss';
 import jsonData from './data.json';
 import StepperSignup from './StepperSignup';
 import ResumeSignup from './ResumeSignup';
-import { Paper } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const Signup = () => {
+  const componentRef = useRef();
   const [data, setData] = useState();
   const [preset, setPreset] = useState([
     { primary: '#009688', background: '#ebf5f4', skills: '#e5f4f3' },
@@ -28,28 +29,30 @@ const Signup = () => {
     setData(jsonData);
   }, []);
 
-  const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
   return (
-    <div className='mainContent'>
+    <div className='mainContent' >
+      <Typography sx={{textAlign:"center", fontSize:"30px"}}>Signup and Resume Builder</Typography>
       {data !== undefined && (
         <Fragment>
-          <Paper elevation={2} className='left'>
+          <Box sx={{height:"100vh"}}>
+          <div className='left'>
          
             <StepperSignup data={data} setData={setData} preset={preset} setColor={setColor} color={color}/>
           
-          </Paper>
-          <div className='right'>
-            <ResumeSignup ref={componentRef} data={data} color={color} />
+          </div>
+          <div className='right' ref={componentRef}>
+            <ResumeSignup  data={data} color={color} />
           </div>
 
           <button className='printBtn' onClick={handlePrint}>
             Download / Print
           </button>
+          </Box>
         </Fragment>
       )}
     </div>

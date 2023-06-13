@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Default from '../../Images/default.jpg';
 
 const Contact = ({ data, color }) => {
-  const { name, photoUrl, location, phone, email, linkedin, github } = data.contact;
+  const { name, photoUrl, location, phone, email, linkedin, github,password,confirmPassword } = data.contact;
 
   return (
     <Fragment>
@@ -65,6 +65,22 @@ const Contact = ({ data, color }) => {
             </p>
           </div>
         )}
+        {/* {password && (
+          <div className='item'>
+            <p className='material-icons icon' style={{ color: `${color.primary}` }}>
+              location_on
+            </p>
+            <p className='text'>{password}</p>
+          </div>
+        )}
+         {confirmPassword && (
+          <div className='item'>
+            <p className='material-icons icon' style={{ color: `${color.primary}` }}>
+              location_on
+            </p>
+            <p className='text'>{confirmPassword}</p>
+          </div>
+        )} */}
       </div>
     </Fragment>
   );

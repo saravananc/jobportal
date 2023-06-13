@@ -4,6 +4,9 @@
   width: 100%;
   min-width: 278px;
   padding: 10px;
+  
+  height: 300vh;
+  overflow: auto;
 
   .colorSchemeContainer {
     display: flex;

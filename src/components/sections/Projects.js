@@ -2,7 +2,7 @@ import React from 'react';
 
 const Projects = ({ data, color }) => {
   const projects = data.projects;
-  const projects_link = data.projects_link;
+  // const projects_link = data.projects_link;
   return (
     <div className='projects'>
       <p className='heading' style={{ color: `${color.primary}` }}>
@@ -33,7 +33,7 @@ const Projects = ({ data, color }) => {
           <p className='description'>{item.description}</p>
         </ul>
       ))}
-      {projects_link.length > 0 && (
+      {/* {projects_link.length > 0 && (
         <li className='repo_link'>
           More projects on:
           <span className='fas fa-link' />
@@ -46,7 +46,7 @@ const Projects = ({ data, color }) => {
             {projects_link}
           </a>
         </li>
-      )}
+      )} */}
     </div>
   );
 };

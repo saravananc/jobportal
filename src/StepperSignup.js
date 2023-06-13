@@ -28,8 +28,17 @@ import "../src/styles/Form.scss";
 
 const StepperSignup = ({ data, setData, preset, setColor, color }) => {
   const [pickerColor, setPickerColor] = useState();
-  let { name, photoUrl, location, phone, email, linkedin, github } =
-    data.contact;
+  let {
+    name,
+    photoUrl,
+    location,
+    phone,
+    email,
+    linkedin,
+    github,
+    password,
+    confirmPassword,
+  } = data.contact;
   let languages = data.languages;
   // let references = data.references;
   let objective = data.objective;
@@ -37,7 +46,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
   let experience = data.experience;
   let certifications = data.certifications;
   let projects = data.projects;
-  let projects_link = data.projects_link;
+  // let projects_link = data.projects_link;
   let workshops = data.workshops;
 
   // Handle photo upload
@@ -118,15 +127,6 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
     setData({
       ...data,
       section: temp,
-    });
-  };
-
-  // // Handle color scheme change
-  const changeColorScheme = (item) => {
-    setColor({
-      primary: item.primary,
-      background: item.background,
-      skills: item.skills,
     });
   };
 
@@ -296,57 +296,72 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
 
   return (
     <Paper elevation={2} className="form-container">
-      <div className="colorSchemeContainer">
-        <p>Select Resume Color : </p>
-        <div className="colorContainer">
-          {preset.map((item, key) => (
-            <div
-              key={key}
-              className="colorScheme"
-              style={{ backgroundColor: `${item.primary}` }}
-            ></div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <div style={styles.swatch} onClick={handleClick}>
-          <div style={styles.color} />
-        </div>
-        {displayColorPicker && (
-          <div style={styles.popover}>
-            <div style={styles.cover} onClick={handleClose} />
-            <SketchPicker color={pickerColor} onChange={handleColorChange} />
-          </div>
-        )}
-      </div>
-
-      <div style={{ display: "flex" }}>
-        <div>
-          <Files
-            className="files-dropzone file-btn"
-            onChange={(files) => handlePhotoUpload(files)}
-            onError={(err) => console.log(err)}
-            accepts={["image/jpeg", "image/jpg", "image/png", "image/svg"]}
-            multiple
-            maxFiles={100}
-            maxFileSize={10000000}
-            minFileSize={0}
-            clickable
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              component="span"
-              sx={{ m: 2 }}
-            >
-              Upload Photo
-            </Button>
-          </Files>
-        </div>
-      </div>
-
-      <Stack sx={{ width: "90%" }} spacing={4}>
+      <Paper elevation={0}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={5}>
+            <div className="colorSchemeContainer">
+              <p>Select Resume Color : </p>
+              <div className="colorContainer">
+                {preset.map((item, key) => (
+                  <div
+                    key={key}
+                    className="colorScheme"
+                    style={{ backgroundColor: `${item.primary}` }}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={2}>
+            <div>
+              <div style={styles.swatch} onClick={handleClick}>
+                <div style={styles.color} />
+              </div>
+              {displayColorPicker && (
+                <div style={styles.popover}>
+                  <div style={styles.cover} onClick={handleClose} />
+                  <SketchPicker
+                    color={pickerColor}
+                    onChange={handleColorChange}
+                  />
+                </div>
+              )}
+            </div>
+          </Grid>
+          <Grid item xs={5}>
+            <div style={{ display: "flex" }}>
+              <div>
+                <Files
+                  className="files-dropzone file-btn"
+                  onChange={(files) => handlePhotoUpload(files)}
+                  onError={(err) => console.log(err)}
+                  accepts={[
+                    "image/jpeg",
+                    "image/jpg",
+                    "image/png",
+                    "image/svg",
+                  ]}
+                  multiple
+                  maxFiles={100}
+                  maxFileSize={10000000}
+                  minFileSize={0}
+                  clickable
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    sx={{ m: 2 }}
+                  >
+                    Upload Photo
+                  </Button>
+                </Files>
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Stack sx={{ width: "90%", mt: 1 }} spacing={4}>
         <Stepper
           alternativeLabel
           activeStep={activeStep}
@@ -412,6 +427,21 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             type="text"
             name="github"
             value={github}
+            onChange={handleContactChange}
+          />
+          <p className="label">Password</p>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleContactChange}
+          />
+
+          <p className="label">Confirm Password</p>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
             onChange={handleContactChange}
           />
         </div>
@@ -826,7 +856,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
           >
             Add
           </button>
-          <input
+          {/* <input
             type="text"
             name="projects_link"
             placeholder="URL of More Projects"
@@ -834,7 +864,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             onChange={(e) =>
               setData({ ...data, projects_link: e.target.value })
             }
-          />
+          /> */}
         </div>
       )}
 
