@@ -12,9 +12,6 @@ import {
   Avatar,
   Stack,
   Chip,
-  //   Accordion,
-  //   AccordionSummary,
-  //   AccordionDetails,
 } from "@mui/material";
 import { CardActionArea } from "@mui/material";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -120,26 +117,25 @@ const JobSearch = () => {
 
   const [expanded, setExpanded] = React.useState("panel1");
 
-  const handleChange = (panel) => (event,newExpanded) => {
+  const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
- 
 
   const cardData = [
     {
       title: "Marketing Operations Manager",
-      companyName: "Company Name",
+      companyName: "Google",
       experience: "3-5 Years",
       salary: "Not disclosed",
       locations: "Chennai, Bangalore",
-      description: "4+ years experience in marketing operations (consumer or higher educa...)",
+      description:
+        "4+ years experience in marketing operations (consumer or higher educa...)",
       skills: "Email, CRM, Salesforce, Science",
       timestamp: "1 Day Ago",
     },
     {
       title: "Full Stack Developer",
-      companyName: "Company Name",
+      companyName: "Cidc",
       experience: "3-5 Years",
       salary: "Not disclosed",
       locations: "Chennai, Bangalore",
@@ -149,18 +145,17 @@ const JobSearch = () => {
     },
     {
       title: "Marketing Operations Manager",
-      companyName: "Company Name",
+      companyName: "Apple Inc",
       experience: "3-5 Years",
       salary: "Not disclosed",
       locations: "Chennai, Bangalore",
-      description: "8+ years experience in marketing operations (consumer or higher educa...)",
+      description:
+        "8+ years experience in marketing operations (consumer or higher educa...)",
       skills: "Email, CRM, Salesforce, Science",
       timestamp: "1 Day Ago",
     },
     // Add more card data objects as needed
   ];
-  
-  
 
   const [checkboxOptions, setCheckboxOptions] = React.useState([
     {
@@ -285,79 +280,102 @@ const JobSearch = () => {
               <Typography color="blueviolet" variant="subtitle2" gutterBottom>
                 Search : Marketing Jobs(500 jobs)
               </Typography>
-             
-           <div>
-      {cardData.map((data, index) => (
-        <Box key={index} sx={{ minWidth: 275 }}>
-          <Card
-            sx={{
-              borderRadius: "15px",
-              mt: 1,
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-              transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
-              "&:hover": {
-                boxShadow: "0px 15px 20px rgba(0, 0, 0, 0.3)",
-              },
-            }}
-            variant="outlined"
-          >
-            <CardActionArea>
-              <CardContent>
-                <CardActions>
-                  <Typography sx={{ fontSize: 20 }} gutterBottom>
-                    {data.title}
-                    
-                  </Typography>
-                  <Avatar
-                    sx={{ backgroundColor: "orange", marginLeft: "auto" }}
-                    aria-label="companyname"
-                  >
-                    CN
-                  </Avatar>
-                </CardActions>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  {data.companyName}
-                </Typography>
-                <Stack direction="row" spacing={1}>
-                  <Chip
-                    sx={{ backgroundColor: "white" }}
-                    icon={<WorkIcon style={{ color: "#478CF7" }} />}
-                    label={data.experience}
-                  />
-                  <Chip
-                    sx={{ backgroundColor: "white" }}
-                    icon={<CurrencyRupeeIcon style={{ color: "#FFB300" }} />}
-                    label={data.salary}
-                  />
-                  <Chip
-                    sx={{ backgroundColor: "white" }}
-                    icon={<LocationOnIcon style={{ color: "blueviolet" }} />}
-                    label={data.locations}
-                  />
-                </Stack>
-                <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-                  <Chip
-                    sx={{ backgroundColor: "white" }}
-                    icon={<DescriptionIcon style={{ color: "lightblue" }} />}
-                    label={data.description}
-                  />
-                </Stack>
-                <Typography sx={{ mt: 1.5 }} color="text.secondary">
-                  {data.skills}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Typography sx={{ fontSize: "12px" }}>{data.timestamp}</Typography>
-                <Button sx={{ marginLeft: "auto" }} size="small">
-                  <NavigationIcon />
-                  Save
-                </Button>
-              </CardActions>
-            </CardActionArea>
-          </Card>
-        </Box>
-      ))}
-    </div>
+
+              <div>
+                {cardData.map((data, index) => (
+                  <Box key={index} sx={{ minWidth: 275 }}>
+                    <Card
+                      sx={{
+                        borderRadius: "15px",
+                        mt: 1,
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+                        transition:
+                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                        "&:hover": {
+                          boxShadow: "0px 15px 20px rgba(0, 0, 0, 0.3)",
+                        },
+                      }}
+                      variant="outlined"
+                    >
+                      <CardActionArea>
+                        <CardContent>
+                          <CardActions>
+                            <div>
+                              <Typography sx={{ fontSize: 20 }} gutterBottom>
+                                {data.title}
+                              </Typography>
+                              <Typography
+                                sx={{ mb: 1.5, color: "text.secondary" }}
+                              >
+                                {data.companyName}
+                              </Typography>
+                            </div>
+                            <div style={{ marginLeft: "auto" }}>
+                              <Avatar
+                                sx={{
+                                  backgroundColor: "orange",
+                                }}
+                                aria-label="companyname"
+                              >
+                                {data.companyName.substring(0, 2).toUpperCase()}
+                              </Avatar>
+                            </div>
+                          </CardActions>
+
+                          <Stack direction="row" spacing={1}>
+                            <Chip
+                              sx={{ backgroundColor: "white" }}
+                              icon={<WorkIcon style={{ color: "#478CF7" }} />}
+                              label={data.experience}
+                            />
+                            <Chip
+                              sx={{ backgroundColor: "white" }}
+                              icon={
+                                <CurrencyRupeeIcon
+                                  style={{ color: "#FFB300" }}
+                                />
+                              }
+                              label={data.salary}
+                            />
+                            <Chip
+                              sx={{ backgroundColor: "white" }}
+                              icon={
+                                <LocationOnIcon
+                                  style={{ color: "blueviolet" }}
+                                />
+                              }
+                              label={data.locations}
+                            />
+                          </Stack>
+                          <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                            <Chip
+                              sx={{ backgroundColor: "white" }}
+                              icon={
+                                <DescriptionIcon
+                                  style={{ color: "lightblue" }}
+                                />
+                              }
+                              label={data.description}
+                            />
+                          </Stack>
+                          <Typography sx={{ mt: 1.5 }} color="text.secondary">
+                            {data.skills}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Typography sx={{ fontSize: "12px" }}>
+                            {data.timestamp}
+                          </Typography>
+                          <Button sx={{ marginLeft: "auto" }} size="small">
+                            <NavigationIcon />
+                            Save
+                          </Button>
+                        </CardActions>
+                      </CardActionArea>
+                    </Card>
+                  </Box>
+                ))}
+              </div>
             </Item>
           </Grid>
           <Grid item xs={12} md={3}>
