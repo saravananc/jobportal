@@ -15,5 +15,5 @@ export const Imagesfile = {
     Comimgms : require("./microsoftlogo.png"),
     Comimgnf : require("./Netflixlogo.png"),
     Comimgyah   : require("./yahoo.png"),
-    
+    loginLeft: require("./signinLeft.json")
 };

@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import "../src/App.css";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { Imagesfile } from "./Images/Images";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -61,7 +62,7 @@ const Signin = () => {
             <Player
               autoplay
               loop
-              src="https://assets3.lottiefiles.com/packages/lf20_vw2a6ckt.json"
+              src={Imagesfile.loginLeft}
               style={{ height: "400px", width: "500px" }}
             ></Player>
           </Paper>
@@ -140,7 +141,7 @@ const Signin = () => {
                   <Button
                     fullWidth
                     variant="contained"
-                    sx={{backgroundColor:"#895DA5"}}
+                    sx={{backgroundColor:"#6936F5"}}
                     onClick={handleSignIn}
                     href="/"
                   >

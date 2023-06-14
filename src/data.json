@@ -40,8 +40,8 @@
 
   "languages": [
     { "language": "English", "level": 5 },
-    { "language": "Tamil", "level": 5 },
-    { "language": "Hindi", "level": 3 }
+    { "language": "Tamil", "level": 5 }
+    
   ],
 
   "experience": [
@@ -49,7 +49,7 @@
       "year": "Aug 2017 - Dec 2017",
       "company": "ABC Mobile App Pvt. Ltd.",
       "position": "Backend & Frontend Developer",
-      "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores."
+      "description": "Created Android applications using Android Studio, Kotlin and React Native."
     },
     {
       "year": "July 2017 - Dec 2017",
@@ -84,19 +84,15 @@
     "CSS",
     "JavaScript",
     "jQuery",
-    "Node.js",
-    "MySQL",
-    "Android",
-    "iOS",
-    "Maeketing",
-    "Sales"
+    "Node.js"
+    
   ],
 
   "projects": [
     {
       "title": "Project-1",
       "link": "https://project1.myapp.com",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+      "description": " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
     },
     {
       "title": "Project-2",

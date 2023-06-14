@@ -12,7 +12,7 @@ const Footer = () => {
         sx={{
           py: 3,
           mt: "auto",
-          backgroundColor: "#895DA5",
+          backgroundColor: "#6936F5",
         }}
       >
         <Container maxWidth="xl">
