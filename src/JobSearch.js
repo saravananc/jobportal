@@ -347,7 +347,7 @@ const JobSearch = () => {
                               label={data.locations}
                             />
                           </Stack>
-                          <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                          <Stack direction="row" spacing={1} >
                             <Chip
                               sx={{ backgroundColor: "white" }}
                               icon={
@@ -358,7 +358,7 @@ const JobSearch = () => {
                               label={data.description}
                             />
                           </Stack>
-                          <Typography sx={{ mt: 1.5 }} color="text.secondary">
+                          <Typography sx={{ mt: 1 }} color="text.secondary">
                             {data.skills}
                           </Typography>
                         </CardContent>

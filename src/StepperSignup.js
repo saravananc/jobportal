@@ -294,6 +294,39 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
     console.log(data);
   };
 
+
+ 
+   
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  
+    
+  
+    function handlePasswordValidation(event) {
+      const { name, value } = event.target;
+      let passwordError = '';
+      let confirmPasswordError = '';
+  
+      if (name === 'password') {
+        if (value.length < 8) {
+          passwordError = 'Password should be at least 8 characters long';
+        }
+  
+        // Perform additional password validation checks
+        // Example: Check if the password contains at least one number
+        if (!/\d/.test(value)) {
+          passwordError = 'Password should contain at least 8 characters & one number';
+        }
+      } else if (name === 'confirmPassword') {
+        if (value !== password) {
+          confirmPasswordError = 'Confirm password does not match the password';
+        }
+      }
+  
+      // Update the component state with the error messages
+      setPasswordError(passwordError);
+      setConfirmPasswordError(confirmPasswordError);
+    }
   return (
     <Paper elevation={2} className="form-container">
       <Paper elevation={0}>
@@ -429,22 +462,27 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             value={github}
             onChange={handleContactChange}
           />
+         
           <p className="label">Password</p>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleContactChange}
-          />
+      <input
+        type="password"
+        name="password"
+        value={password}
+        onChange={handleContactChange}
+        onKeyUp={handlePasswordValidation}
+      />
+      {passwordError && <p style={{color:"red"}} className="error">{passwordError}</p>}
 
-          <p className="label">Confirm Password</p>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={handleContactChange}
-          />
-        </div>
+      <p className="label">Confirm Password</p>
+      <input
+        type="password"
+        name="confirmPassword"
+        value={confirmPassword}
+        onChange={handleContactChange}
+        onKeyUp={handlePasswordValidation}
+      />
+      {confirmPasswordError && <p style={{color:"red"}} className="error">{confirmPasswordError}</p>}
+    </div>
       )}
 
       {activeStep === 1 && (
