@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,9 +10,9 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
-
 import { Stack, Button } from "@mui/material";
 import { Imagesfile } from "./Images/Images";
+
 const pages = ["Jobs", "Companies", "Services"];
 
 const LandingHeader = () => {
@@ -25,7 +27,7 @@ const LandingHeader = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "white", m:0, p:0 }}>
+    <AppBar position="static" sx={{ backgroundColor: "white", m: 0, p: 0 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1 }}>
@@ -35,7 +37,7 @@ const LandingHeader = () => {
               style={{ height: "30px", marginRight: "10px" }}
             />
           </Box>
-        
+
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -72,28 +74,35 @@ const LandingHeader = () => {
               ))}
             </Menu>
           </Box>
-          
+
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block",  fontWeight: "bold", }}
+                sx={{
+                  my: 2,
+                  color: "black",
+                  display: "block",
+                  fontWeight: "bold",
+                }}
               >
                 {page}
               </Button>
             ))}
           </Box>
-          <Stack spacing={2} direction="row">
-         
+
+          <Stack spacing={2} direction={{ xs: "column", md: "row" }}>
             <Button
               variant="outlined"
-              style={{
+              sx={{
                 borderRadius: "10px",
                 color: "black",
                 borderColor: "#6936F5",
-               
                 fontWeight: "bold",
+                fontSize: "12px",
+                width: "80px",
+                height: "30px",
               }}
               href="/login"
             >
@@ -101,22 +110,25 @@ const LandingHeader = () => {
             </Button>
             <Button
               variant="outlined"
-              style={{
+              sx={{
                 borderRadius: "10px",
                 fontWeight: "bold",
                 color: "white",
                 border: "none",
                 background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                fontSize: "12px",
+                width: "80px",
+                height: "30px",
               }}
               href="/signup"
             >
               Sign up
             </Button>
-          
           </Stack>
         </Toolbar>
       </Container>
     </AppBar>
   );
 };
+
 export default LandingHeader;
