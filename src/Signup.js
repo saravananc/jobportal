@@ -36,7 +36,14 @@ const Signup = () => {
 
   return (
     <div className='mainContent' >
-      <Typography sx={{textAlign:"center", fontSize:"30px"}}>Signup and Resume Builder</Typography>
+     
+<Typography sx={{ textAlign: "center",textDecoration: 'underline'}}>
+  <Box sx={{ backgroundColor: "#E6E6FA", display: "inline", fontSize:"30px" }}>
+    Signup and Resume Builder
+  </Box>
+</Typography>
+
+
       {data !== undefined && (
         <Fragment>
           <Box sx={{height:"100vh"}}>

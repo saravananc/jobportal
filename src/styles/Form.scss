@@ -4,21 +4,21 @@
   width: 100%;
   min-width: 278px;
   padding: 10px;
-  
+  background-color: white;
   height: 300vh;
   overflow: auto;
 
   .colorSchemeContainer {
     display: flex;
     height: fit-content;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
 
-    p {
-      font-size: 18px;
-      margin: 0;
-      font-weight: bold;
-      margin-right: 20px;
-    }
+    // p {
+    //   font-size: 18px;
+    //   margin: 0;
+    //   font-weight: bold;
+    //   margin-right: 20px;
+    // }
     // .colorContainer {
     //   display: flex;
     //   .colorScheme {

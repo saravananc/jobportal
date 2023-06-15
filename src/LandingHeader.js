@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -72,10 +70,48 @@ const LandingHeader = () => {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderRadius: "10px",
+                    color: "black",
+                    borderColor: "#6936F5",
+                    fontWeight: "bold",
+                    fontSize: "12px",
+                    width: "100%",
+                    height: "30px",
+                  }}
+                  href="/login"
+                >
+                  Sign In
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderRadius: "10px",
+                    fontWeight: "bold",
+                    color: "white",
+                    border: "none",
+                    background:
+                      "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                    fontSize: "12px",
+                    width: "100%",
+                    height: "30px",
+                  }}
+                  href="/signup"
+                >
+                  Sign Up
+                </Button>
+              </MenuItem>
             </Menu>
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
@@ -90,9 +126,6 @@ const LandingHeader = () => {
                 {page}
               </Button>
             ))}
-          </Box>
-
-          <Stack spacing={2} direction={{ xs: "column", md: "row" }}>
             <Button
               variant="outlined"
               sx={{
@@ -103,6 +136,7 @@ const LandingHeader = () => {
                 fontSize: "12px",
                 width: "80px",
                 height: "30px",
+                marginLeft: "10px",
               }}
               href="/login"
             >
@@ -119,12 +153,13 @@ const LandingHeader = () => {
                 fontSize: "12px",
                 width: "80px",
                 height: "30px",
+                marginLeft: "10px",
               }}
               href="/signup"
             >
-              Sign up
+              Sign Up
             </Button>
-          </Stack>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

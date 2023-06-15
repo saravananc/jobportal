@@ -5,8 +5,9 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import Footer from "./Footer";
 import JobSearch from "./JobSearch";
-
+import Jobdescription from "./Jobdescription";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 function App() {
   return (
     <>
@@ -17,12 +18,13 @@ function App() {
           <Route path="/login" element={<Signin/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/jobsearch" element={<JobSearch/>}/>
+          <Route path="/jobdescription" element={<Jobdescription/>}/>
         </Routes>
         <Footer/>
-
+        
       </BrowserRouter>
 
-      
+      {/* <Jobdescription/> */}
       
       {/* <LandingSearch /> */}
       {/* <Signin /> */}

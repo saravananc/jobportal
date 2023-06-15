@@ -9,6 +9,14 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText,
+} from "@mui/material";
+
 import Files from "react-files";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -25,6 +33,7 @@ import reactCSS from "reactcss";
 import { SketchPicker } from "react-color";
 
 import "../src/styles/Form.scss";
+import { Typography } from "@material-ui/core";
 
 const StepperSignup = ({ data, setData, preset, setColor, color }) => {
   const [pickerColor, setPickerColor] = useState();
@@ -213,14 +222,14 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
       height: 3,
       border: 0,
       backgroundColor:
-        theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+        theme.palette.mode === "primary" ? theme.palette.grey[800] : "#eaeaf0", //change dark to primary
       borderRadius: 1,
     },
   }));
 
   const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
     backgroundColor:
-      theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
+      theme.palette.mode === "primary" ? theme.palette.grey[700] : "#ccc", //change dark to primary
     zIndex: 1,
     color: "#fff",
     width: 50,
@@ -294,44 +303,39 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
     console.log(data);
   };
 
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
- 
-   
-    const [passwordError, setPasswordError] = useState('');
-    const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  
-    
-  
-    function handlePasswordValidation(event) {
-      const { name, value } = event.target;
-      let passwordError = '';
-      let confirmPasswordError = '';
-  
-      if (name === 'password') {
-        if (value.length < 8) {
-          passwordError = 'Password should be at least 8 characters long';
-        }
-  
-        // Perform additional password validation checks
-        // Example: Check if the password contains at least one number
-        if (!/\d/.test(value)) {
-          passwordError = 'Password should contain at least 8 characters & one number';
-        }
-      } else if (name === 'confirmPassword') {
-        if (value !== password) {
-          confirmPasswordError = 'Confirm password does not match the password';
-        }
+  function handlePasswordValidation(event) {
+    const { name, value } = event.target;
+    let passwordError = "";
+    let confirmPasswordError = "";
+
+    if (name === "password") {
+      if (value.length < 8) {
+        passwordError = "Password should be at least 8 characters long";
       }
-  
-      // Update the component state with the error messages
-      setPasswordError(passwordError);
-      setConfirmPasswordError(confirmPasswordError);
+
+      if (!/\d/.test(value)) {
+        passwordError =
+          "Password should contain at  least 8 characters & one number";
+      }
+    } else if (name === "confirmPassword") {
+      if (value !== password) {
+        confirmPasswordError = "Confirm password does not match the password";
+      }
     }
+
+    // Update the component state with the error messages
+    setPasswordError(passwordError);
+    setConfirmPasswordError(confirmPasswordError);
+  }
+
   return (
-    <Paper elevation={2} className="form-container">
+    <Box className="form-container">
       <Paper elevation={0}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={5}>
+        <Grid container spacing={1} alignItems="center" justifyContent="center">
+          <Grid item xs={4}>
             <div className="colorSchemeContainer">
               <p>Select Resume Color : </p>
               <div className="colorContainer">
@@ -345,7 +349,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
               </div>
             </div>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <div>
               <div style={styles.swatch} onClick={handleClick}>
                 <div style={styles.color} />
@@ -411,227 +415,742 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
       </Stack>
 
       {activeStep === 0 && (
-        <div className="section contact">
-          <h3 className="heading">Contact</h3>
-          <p className="label">Name</p>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleContactChange}
-          />
-          <p className="label">Photo URL</p>
-          <input
-            type="text"
-            name="photoUrl"
-            value={photoUrl}
-            onChange={handleContactChange}
-          />
-          <p className="label">Location</p>
-          <input
-            type="text"
-            name="location"
-            value={location}
-            onChange={handleContactChange}
-          />
-          <p className="label">Phone</p>
-          <input
-            type="text"
-            name="phone"
-            value={phone}
-            onChange={handleContactChange}
-          />
-          <p className="label">Email</p>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={handleContactChange}
-          />
-          <p className="label">LinkedIn</p>
-          <input
-            type="text"
-            name="linkedin"
-            value={linkedin}
-            onChange={handleContactChange}
-          />
-          <p className="label">Github</p>
-          <input
-            type="text"
-            name="github"
-            value={github}
-            onChange={handleContactChange}
-          />
-         
-          <p className="label">Password</p>
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={handleContactChange}
-        onKeyUp={handlePasswordValidation}
-      />
-      {passwordError && <p style={{color:"red"}} className="error">{passwordError}</p>}
+        //     <div className="section contact">
+        //       <h3 className="heading">Contact</h3>
+        //       <p className="label">Name</p>
+        //       <input
+        //         type="text"
+        //         name="name"
+        //         value={name}
+        //         onChange={handleContactChange}
+        //       />
+        //       <p className="label">Photo URL</p>
+        //       <input
+        //         type="text"
+        //         name="photoUrl"
+        //         value={photoUrl}
+        //         onChange={handleContactChange}
+        //       />
+        //       <p className="label">Location</p>
+        //       <input
+        //         type="text"
+        //         name="location"
+        //         value={location}
+        //         onChange={handleContactChange}
+        //       />
+        //       <p className="label">Phone</p>
+        //       <input
+        //         type="text"
+        //         name="phone"
+        //         value={phone}
+        //         onChange={handleContactChange}
+        //       />
+        //       <p className="label">Email</p>
+        //       <input
+        //         type="text"
+        //         name="email"
+        //         value={email}
+        //         onChange={handleContactChange}
+        //       />
+        //       <p className="label">LinkedIn</p>
+        //       <input
+        //         type="text"
+        //         name="linkedin"
+        //         value={linkedin}
+        //         onChange={handleContactChange}
+        //       />
+        //       <p className="label">Github</p>
+        //       <input
+        //         type="text"
+        //         name="github"
+        //         value={github}
+        //         onChange={handleContactChange}
+        //       />
 
-      <p className="label">Confirm Password</p>
-      <input
-        type="password"
-        name="confirmPassword"
-        value={confirmPassword}
-        onChange={handleContactChange}
-        onKeyUp={handlePasswordValidation}
-      />
-      {confirmPasswordError && <p style={{color:"red"}} className="error">{confirmPasswordError}</p>}
-    </div>
+        //       <p className="label">Password</p>
+        //   <input
+        //     type="password"
+        //     name="password"
+        //     value={password}
+        //     onChange={handleContactChange}
+        //     onKeyUp={handlePasswordValidation}
+        //   />
+        //   {passwordError && <p style={{color:"red"}} className="error">{passwordError}</p>}
+
+        //   <p className="label">Confirm Password</p>
+        //   <input
+        //     type="password"
+        //     name="confirmPassword"
+        //     value={confirmPassword}
+        //     onChange={handleContactChange}
+        //     onKeyUp={handlePasswordValidation}
+        //   />
+        //   {confirmPasswordError && <p style={{color:"red"}} className="error">{confirmPasswordError}</p>}
+        // </div>
+
+        // <div className="section contact">
+        //   <h3 style={{ margin: "20px 0 20px 0" }} className="heading">
+        //     Contact
+        //   </h3>
+        //   <div
+        //     style={{
+        //       display: "flex",
+        //       flexDirection: "row",
+        //       gap: "10px",
+        //       marginTop: "15px",
+        //     }}
+        //   >
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Name</p> */}
+        //       <TextField
+        //         type="text"
+        //         name="name"
+        //         value={name}
+        //         label="Name"
+        //         onChange={handleContactChange}
+        //         size="small"
+        //       />
+        //     </div>
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Photo URL</p> */}
+        //       <TextField
+        //         type="text"
+        //         name="photoUrl"
+        //         value={photoUrl}
+        //         label="Photo URL"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //       />
+        //     </div>
+        //   </div>
+        //   <div
+        //     style={{
+        //       display: "flex",
+        //       flexDirection: "row",
+        //       gap: "10px",
+        //       marginTop: "15px",
+        //     }}
+        //   >
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Location</p> */}
+        //       <TextField
+        //         type="text"
+        //         name="location"
+        //         value={location}
+        //         label="Location"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //       />
+        //     </div>
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Phone</p> */}
+        //       <TextField
+        //         type="text"
+        //         name="phone"
+        //         value={phone}
+        //         label="Phone"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //       />
+        //     </div>
+        //   </div>
+        //   <div
+        //     style={{
+        //       display: "flex",
+        //       flexDirection: "row",
+        //       gap: "10px",
+        //       marginTop: "15px",
+        //     }}
+        //   >
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Email</p> */}
+        //       <TextField
+        //         type="text"
+        //         name="email"
+        //         value={email}
+        //         label="Email"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //       />
+        //     </div>
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">LinkedIn</p> */}
+        //       <TextField
+        //         type="text"
+        //         name="linkedin"
+        //         value={linkedin}
+        //         label="LinkedIn"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //       />
+        //     </div>
+        //   </div>
+        //   <div
+        //     style={{
+        //       display: "flex",
+        //       flexDirection: "row",
+        //       gap: "10px",
+        //       marginTop: "15px",
+        //     }}
+        //   >
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Github</p> */}
+        //       <TextField
+        //         type="text"
+        //         name="github"
+        //         value={github}
+        //         label="Github"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //       />
+        //     </div>
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Password</p> */}
+        //       <TextField
+        //         type="password"
+        //         name="password"
+        //         value={password}
+        //         label="Password"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //         onKeyUp={handlePasswordValidation}
+        //       />
+        //       {passwordError && (
+        //         <p style={{ color: "red" }} className="error">
+        //           {passwordError}
+        //         </p>
+        //       )}
+        //     </div>
+        //   </div>
+        //   <div
+        //     style={{
+        //       display: "flex",
+        //       flexDirection: "row",
+        //       gap: "10px",
+        //       marginTop: "15px",
+        //     }}
+        //   >
+        //     <div style={{ display: "flex", flexDirection: "column" }}>
+        //       {/* <p className="label">Confirm Password</p> */}
+        //       <TextField
+        //         type="password"
+        //         name="confirmPassword"
+        //         value={confirmPassword}
+        //         label="Confirm Password"
+        //         size="small"
+        //         onChange={handleContactChange}
+        //         onKeyUp={handlePasswordValidation}
+        //       />
+        //       {confirmPasswordError && (
+        //         <p style={{ color: "red" }} className="error">
+        //           {confirmPasswordError}
+        //         </p>
+        //       )}
+        //     </div>
+        //   </div>
+        // </div>
+
+        <div className="section contact">
+          <Typography
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            variant="h5"
+            className="heading"
+          >
+            Contact
+          </Typography>
+
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                type="text"
+                name="name"
+                value={name}
+                label="Name"
+                size="small"
+                onChange={handleContactChange}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                type="text"
+                name="photoUrl"
+                value={photoUrl}
+                label="Photo URL"
+                size="small"
+                onChange={handleContactChange}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2} marginTop={1}>
+            <Grid item xs={6}>
+              <TextField
+                type="text"
+                name="location"
+                value={location}
+                label="Location"
+                size="small"
+                onChange={handleContactChange}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                type="text"
+                name="phone"
+                label="Phone"
+                size="small"
+                value={phone}
+                onChange={handleContactChange}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2} marginTop={1}>
+            <Grid item xs={6}>
+              <TextField
+                type="text"
+                name="email"
+                label="Email"
+                size="small"
+                value={email}
+                onChange={handleContactChange}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                type="text"
+                name="linkedin"
+                label="Linkedin"
+                size="small"
+                value={linkedin}
+                onChange={handleContactChange}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2} marginTop={1}>
+            <Grid item xs={6}>
+              <TextField
+                type="text"
+                name="github"
+                label="Github"
+                size="small"
+                value={github}
+                onChange={handleContactChange}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                type="password"
+                name="password"
+                label="Password"
+                size="small"
+                value={password}
+                onChange={handleContactChange}
+                onKeyUp={handlePasswordValidation}
+              />
+              {/* Render password error message if needed */}
+              {passwordError && (
+                <Typography
+                  variant="p"
+                  style={{ color: "red" }}
+                  className="error"
+                >
+                  {passwordError}
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2} marginTop={1}>
+            <Grid item xs={6}>
+              <TextField
+                type="password"
+                name="confirmPassword"
+                label="Confirm Password"
+                size="small"
+                value={confirmPassword}
+                onChange={handleContactChange}
+                onKeyUp={handlePasswordValidation}
+              />
+              {/* Render confirm password error message if needed */}
+              {confirmPasswordError && (
+                <Typography
+                  variant="p"
+                  style={{ color: "red" }}
+                  className="error"
+                >
+                  {confirmPasswordError}
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+        </div>
       )}
 
       {activeStep === 1 && (
+        // <div className="section skills">
+        //   <div style={{ display: "flex" }}>
+        //     <h3  style={{margin:"20px 0 20px 0"}}  className="heading">Skills</h3>
+        //   </div>
+        //   <textarea
+        //     name="skills"
+        //     cols="50"
+        //     rows="5"
+        //     value={skills}
+        //     onChange={(e) => setSkills(e.target.value)}
+        //   ></textarea>
+
+        //   <button
+        //     className="btn btn-sm btn-primary"
+        //     onClick={handleSkillsUpdate}
+        //   >
+        //     Done
+        //   </button>
+
+        //   <h3  style={{margin:"20px 0 20px 0"}}  className="heading">Languages</h3>
+        //   {languages.map((item, index) => {
+        //     return (
+        //       <div>
+        //         <Box className="row" key={index} sx={{ flexGrow: 1 }}>
+        //           <Grid container spacing={2}>
+        //             <Grid item xs={6}>
+        //               <input
+        //                 type="text"
+        //                 name="language"
+        //                 placeholder="Language"
+        //                 value={item.language}
+        //                 onChange={(e) =>
+        //                   handleChange(e, index, languages, "language")
+        //                 }
+        //               />
+        //             </Grid>
+        //             <Grid item xs={6}>
+        //               <input
+        //                 type="number"
+        //                 name="level"
+        //                 placeholder="Level"
+        //                 value={item.level}
+        //                 onChange={(e) =>
+        //                   handleChange(e, index, languages, "level")
+        //                 }
+        //               />
+        //             </Grid>
+        //           </Grid>
+        //         </Box>
+
+        //         <button
+        //           className="btn btn-sm btn-danger"
+        //           style={{ marginTop: "10px", marginBottom: "10px" }}
+        //           onClick={() => removeRow(languages, index)}
+        //         >
+        //           Remove
+        //         </button>
+        //       </div>
+        //     );
+        //   })}
+        //   <button
+        //     className="btn btn-sm btn-dark"
+        //     style={{ marginTop: "10px" }}
+        //     onClick={() => addRow(languages, { language: "", level: "" })}
+        //   >
+        //     Add
+        //   </button>
+        // </div>
         <div className="section skills">
-          <div style={{ display: "flex" }}>
-            <h3 className="heading">Skills</h3>
-          </div>
-          <textarea
-            name="skills"
-            cols="50"
-            rows="5"
-            value={skills}
-            onChange={(e) => setSkills(e.target.value)}
-          ></textarea>
-
-          <button
-            className="btn btn-sm btn-primary"
-            onClick={handleSkillsUpdate}
+          <Box
+            sx={{ display: "flex", marginBottom: "10px", marginTop: "10px" }}
           >
-            Done
-          </button>
+            <Typography variant="h5" sx={{ marginRight: "20px" }}>
+              Skills
+            </Typography>
+          </Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={11}>
+              <TextField
+                name="skills"
+                multiline
+                rows={3}
+                value={skills}
+                onChange={(e) => setSkills(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={handleSkillsUpdate}
+              >
+                Done
+              </Button>
+            </Grid>
+          </Grid>
 
-          <h3 className="heading">Languages</h3>
-          {languages.map((item, index) => {
-            return (
-              <div>
-                <Box className="row" key={index} sx={{ flexGrow: 1 }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <input
-                        type="text"
-                        name="language"
-                        placeholder="Language"
-                        value={item.language}
-                        onChange={(e) =>
-                          handleChange(e, index, languages, "language")
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <input
-                        type="number"
-                        name="level"
-                        placeholder="Level"
-                        value={item.level}
-                        onChange={(e) =>
-                          handleChange(e, index, languages, "level")
-                        }
-                      />
-                    </Grid>
+          <Box
+            sx={{ display: "flex", marginTop: "20px", marginBottom: "20px" }}
+          >
+            <Typography variant="h5" sx={{ marginRight: "20px" }}>
+              Languages
+            </Typography>
+          </Box>
+
+          {languages.map((item, index) => (
+            <div key={index}>
+              <Box className="row" sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="language"
+                      label="Language"
+                      value={item.language}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(e, index, languages, "language")
+                      }
+                    />
                   </Grid>
-                </Box>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="number"
+                      name="level"
+                      label="Level"
+                      value={item.level}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(e, index, languages, "level")
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
 
-                <button
-                  className="btn btn-sm btn-danger"
-                  style={{ marginTop: "10px", marginBottom: "10px" }}
-                  onClick={() => removeRow(languages, index)}
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-          <button
-            className="btn btn-sm btn-dark"
-            style={{ marginTop: "10px" }}
+              <Button
+                variant="contained"
+                size="small"
+                color="error"
+                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                onClick={() => removeRow(languages, index)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            sx={{ marginTop: "10px" }}
             onClick={() => addRow(languages, { language: "", level: "" })}
           >
             Add
-          </button>
+          </Button>
         </div>
       )}
 
       {activeStep === 2 && (
+        // <div className="section objective">
+        //   <h3 className="heading">Objective</h3>
+        //   <textarea
+        //     name="objective"
+        //     cols="50"
+        //     rows="5"
+        //     value={objective}
+        //     onChange={(e) => setData({ ...data, objective: e.target.value })}
+        //   ></textarea>
+
+        //   <h3 className="heading">Education</h3>
+        //   {education.map((item, index) => {
+        //     return (
+        //       <div className="row" key={index}>
+        //         <div className="item">
+        //           <input
+        //             type="text"
+        //             name="year"
+        //             placeholder="Year"
+        //             value={item.year}
+        //             onChange={(e) => handleChange(e, index, education, "year")}
+        //           />
+        //           <input
+        //             type="text"
+        //             name="course"
+        //             placeholder="Course/Degree"
+        //             value={item.course}
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             onChange={(e) =>
+        //               handleChange(e, index, education, "course")
+        //             }
+        //           />
+        //           <input
+        //             type="text"
+        //             name="institution"
+        //             placeholder="School/College"
+        //             value={item.institution}
+        //             onChange={(e) =>
+        //               handleChange(e, index, education, "institution")
+        //             }
+        //           />
+        //           <input
+        //             type="text"
+        //             name="university"
+        //             placeholder="Board/University"
+        //             value={item.university}
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             onChange={(e) =>
+        //               handleChange(e, index, education, "university")
+        //             }
+        //           />
+        //           <input
+        //             type="number"
+        //             name="percentage"
+        //             placeholder="Percentage/GPA"
+        //             value={item.percentage}
+        //             onChange={(e) =>
+        //               handleChange(e, index, education, "percentage")
+        //             }
+        //           />
+        //         </div>
+
+        //         <button
+        //           className="btn btn-sm btn-danger"
+        //           style={{ marginTop: "10px", marginBottom: "10px" }}
+        //           onClick={() => removeRow(education, index)}
+        //         >
+        //           Remove
+        //         </button>
+        //       </div>
+        //     );
+        //   })}
+        //   <Button
+        //     variant="contained"
+        //     size="small"
+        //     color="primary"
+        //     sx={{ marginTop: "10px" }}
+        //     onClick={() =>
+        //       addRow(education, {
+        //         year: "",
+        //         course: "",
+        //         institution: "",
+        //         university: "",
+        //         percentage: "",
+        //       })
+        //     }
+        //   >
+        //     Add
+        //   </Button>
+        // </div>
         <div className="section objective">
-          <h3 className="heading">Objective</h3>
-          <textarea
+          <Typography
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            variant="h5"
+            className="heading"
+          >
+            Objective
+          </Typography>
+          <TextField
             name="objective"
-            cols="50"
-            rows="5"
-            value={objective}
+            multiline
+            rows={5}
+            fullWidth
+            value={data.objective}
             onChange={(e) => setData({ ...data, objective: e.target.value })}
-          ></textarea>
+          />
 
-          <h3 className="heading">Education</h3>
-          {education.map((item, index) => {
-            return (
-              <div className="row" key={index}>
-                <div className="item">
-                  <input
-                    type="text"
-                    name="year"
-                    placeholder="Year"
-                    value={item.year}
-                    onChange={(e) => handleChange(e, index, education, "year")}
-                  />
-                  <input
-                    type="text"
-                    name="course"
-                    placeholder="Course/Degree"
-                    value={item.course}
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    onChange={(e) =>
-                      handleChange(e, index, education, "course")
-                    }
-                  />
-                  <input
-                    type="text"
-                    name="institution"
-                    placeholder="School/College"
-                    value={item.institution}
-                    onChange={(e) =>
-                      handleChange(e, index, education, "institution")
-                    }
-                  />
-                  <input
-                    type="text"
-                    name="university"
-                    placeholder="Board/University"
-                    value={item.university}
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    onChange={(e) =>
-                      handleChange(e, index, education, "university")
-                    }
-                  />
-                  <input
-                    type="number"
-                    name="percentage"
-                    placeholder="Percentage/GPA"
-                    value={item.percentage}
-                    onChange={(e) =>
-                      handleChange(e, index, education, "percentage")
-                    }
-                  />
-                </div>
+          <Typography
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            variant="h5"
+            className="heading"
+          >
+            Education
+          </Typography>
+          {data.education.map((item, index) => (
+            <div className="row" key={index}>
+              <Box className="item">
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="year"
+                      label="Year"
+                      size="small"
+                      value={item.year}
+                      onChange={(e) =>
+                        handleChange(e, index, data.education, "year")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="course"
+                      label="Course/Degree"
+                      size="small"
+                      value={item.course}
+                      // style={{ marginTop: "10px", marginBottom: "10px" }}
+                      onChange={(e) =>
+                        handleChange(e, index, data.education, "course")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="institution"
+                      label="School/College"
+                      size="small"
+                      value={item.institution}
+                      onChange={(e) =>
+                        handleChange(e, index, data.education, "institution")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="university"
+                      label="Board/University"
+                      size="small"
+                      value={item.university}
+                      // style={{ marginTop: "10px", marginBottom: "10px" }}
+                      onChange={(e) =>
+                        handleChange(e, index, data.education, "university")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="number"
+                      name="percentage"
+                      label="Percentage/GPA"
+                      size="small"
+                      value={item.percentage}
+                      onChange={(e) =>
+                        handleChange(e, index, data.education, "percentage")
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
 
-                <button
-                  className="btn btn-sm btn-danger"
-                  style={{ marginTop: "10px", marginBottom: "10px" }}
-                  onClick={() => removeRow(education, index)}
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-          <button
-            className="btn btn-sm btn-dark"
-            style={{ marginTop: "10px", marginBottom: "10px" }}
+              <Button
+                variant="contained"
+                size="small"
+                color="error"
+                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                onClick={() => removeRow(data.education, index)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            sx={{ marginTop: "10px" }}
             onClick={() =>
               addRow(education, {
                 year: "",
@@ -643,71 +1162,206 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             }
           >
             Add
-          </button>
+          </Button>
         </div>
       )}
 
       {activeStep === 3 && (
-        <div className="section experience">
-          <h3 className="heading">Experience</h3>
-          {experience.map((item, index) => {
-            return (
-              <div className="row" key={index}>
-                <div className="item">
-                  <input
-                    type="text"
-                    name="year"
-                    placeholder="Year"
-                    value={item.year}
-                    onChange={(e) => handleChange(e, index, experience, "year")}
-                  />
-                  <input
-                    type="text"
-                    name="position"
-                    placeholder="Role/Position"
-                    value={item.position}
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    onChange={(e) =>
-                      handleChange(e, index, experience, "position")
-                    }
-                  />
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="Company"
-                    value={item.company}
-                    onChange={(e) =>
-                      handleChange(e, index, experience, "company")
-                    }
-                  />
-                  <textarea
-                    name="description"
-                    cols="30"
-                    rows="5"
-                    placeholder="Description"
-                    value={item.description}
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    onChange={(e) =>
-                      handleChange(e, index, experience, "description")
-                    }
-                  />
-                </div>
+        // <div className="section experience">
+        //   <h3 className="heading">Experience</h3>
+        //   {experience.map((item, index) => {
+        //     return (
+        //       <div className="row" key={index}>
+        //         <div className="item">
+        //           <input
+        //             type="text"
+        //             name="year"
+        //             placeholder="Year"
+        //             value={item.year}
+        //             onChange={(e) => handleChange(e, index, experience, "year")}
+        //           />
+        //           <input
+        //             type="text"
+        //             name="position"
+        //             placeholder="Role/Position"
+        //             value={item.position}
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             onChange={(e) =>
+        //               handleChange(e, index, experience, "position")
+        //             }
+        //           />
+        //           <input
+        //             type="text"
+        //             name="company"
+        //             placeholder="Company"
+        //             value={item.company}
+        //             onChange={(e) =>
+        //               handleChange(e, index, experience, "company")
+        //             }
+        //           />
+        //           <textarea
+        //             name="description"
+        //             cols="30"
+        //             rows="5"
+        //             placeholder="Description"
+        //             value={item.description}
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             onChange={(e) =>
+        //               handleChange(e, index, experience, "description")
+        //             }
+        //           />
+        //         </div>
 
-                <button
-                  className="btn btn-sm btn-danger"
-                  style={{ marginTop: "10px", marginBottom: "10px" }}
-                  onClick={() => removeRow(experience, index)}
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-          <button
-            className="btn btn-sm btn-dark"
-            style={{ marginTop: "10px" }}
+        //         <button
+        //           className="btn btn-sm btn-danger"
+        //           style={{ marginTop: "10px", marginBottom: "10px" }}
+        //           onClick={() => removeRow(experience, index)}
+        //         >
+        //           Remove
+        //         </button>
+        //       </div>
+        //     );
+        //   })}
+        //   <button
+        //     className="btn btn-sm btn-dark"
+        //     style={{ marginTop: "10px" }}
+        //     onClick={() =>
+        //       addRow(experience, {
+        //         year: "",
+        //         company: "",
+        //         position: "",
+        //         description: "",
+        //       })
+        //     }
+        //   >
+        //     Add
+        //   </button>
+
+        //   <h3 className="heading">Workshops</h3>
+        //   {workshops.map((item, index) => {
+        //     return (
+        //       <div className="row" key={index}>
+        //         <div className="item">
+        //           <input
+        //             type="text"
+        //             name="year"
+        //             placeholder="Year"
+        //             value={item.year}
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             onChange={(e) => handleChange(e, index, workshops, "year")}
+        //           />
+        //           <textarea
+        //             name="description"
+        //             cols="30"
+        //             rows="5"
+        //             placeholder="Description"
+        //             value={item.description}
+        //             onChange={(e) =>
+        //               handleChange(e, index, workshops, "description")
+        //             }
+        //           />
+        //         </div>
+
+        //         <button
+        //           className="btn btn-sm btn-danger"
+        //           style={{ marginTop: "10px", marginBottom: "10px" }}
+        //           onClick={() => removeRow(workshops, index)}
+        //         >
+        //           Remove
+        //         </button>
+        //       </div>
+        //     );
+        //   })}
+        //   <button
+        //     className="btn btn-sm btn-dark"
+        //     onClick={() => addRow(workshops, { year: "", description: "" })}
+        //   >
+        //     Add
+        //   </button>
+        // </div>
+        <div className="section experience">
+          <Typography
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            variant="h5"
+            className="heading"
+          >
+            Experience
+          </Typography>
+          {data.experience.map((item, index) => (
+            <div className="row" key={index}>
+              <Box className="item">
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="year"
+                      label="Year"
+                      size="small"
+                      value={item.year}
+                      onChange={(e) =>
+                        handleChange(e, index, data.experience, "year")
+                      }
+                    />
+
+                    <TextField
+                      type="text"
+                      name="position"
+                      label="Role/Position"
+                      value={item.position}
+                      size="small"
+                      style={{ marginTop: "10px" }}
+                      onChange={(e) =>
+                        handleChange(e, index, data.experience, "position")
+                      }
+                    />
+
+                    <TextField
+                      type="text"
+                      name="company"
+                      label="Company"
+                      value={item.company}
+                      size="small"
+                      style={{ marginTop: "10px" }}
+                      onChange={(e) =>
+                        handleChange(e, index, data.experience, "company")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      name="description"
+                      multiline
+                      rows={5}
+                      label="Description"
+                      size="small"
+                      value={item.description}
+                      onChange={(e) =>
+                        handleChange(e, index, data.experience, "description")
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+
+              <Button
+                variant="contained"
+                size="small"
+                color="error"
+                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                onClick={() => removeRow(data.experience, index)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            sx={{ marginTop: "10px" }}
             onClick={() =>
-              addRow(experience, {
+              addRow(data.experience, {
                 year: "",
                 company: "",
                 position: "",
@@ -716,193 +1370,402 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             }
           >
             Add
-          </button>
+          </Button>
 
-          <h3 className="heading">Workshops</h3>
-          {workshops.map((item, index) => {
-            return (
-              <div className="row" key={index}>
-                <div className="item">
-                  <input
-                    type="text"
-                    name="year"
-                    placeholder="Year"
-                    value={item.year}
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    onChange={(e) => handleChange(e, index, workshops, "year")}
-                  />
-                  <textarea
-                    name="description"
-                    cols="30"
-                    rows="5"
-                    placeholder="Description"
-                    value={item.description}
-                    onChange={(e) =>
-                      handleChange(e, index, workshops, "description")
-                    }
-                  />
-                </div>
+          <Typography
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            variant="h5"
+            className="heading"
+          >
+            Workshops
+          </Typography>
+          {data.workshops.map((item, index) => (
+            <div className="row" key={index}>
+              <Box className="item">
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      type="text"
+                      name="year"
+                      label="Year"
+                      value={item.year}
+                      size="small"
+                      // style={{ marginTop: "10px", marginBottom: "10px" }}
+                      onChange={(e) =>
+                        handleChange(e, index, data.workshops, "year")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={11}>
+                    <TextField
+                      name="description"
+                      multiline
+                      rows={5}
+                      label="Description"
+                      value={item.description}
+                      fullWidth
+                      onChange={(e) =>
+                        handleChange(e, index, data.workshops, "description")
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
 
-                <button
-                  className="btn btn-sm btn-danger"
-                  style={{ marginTop: "10px", marginBottom: "10px" }}
-                  onClick={() => removeRow(workshops, index)}
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-          <button
-            className="btn btn-sm btn-dark"
-            onClick={() => addRow(workshops, { year: "", description: "" })}
+              <Button
+                variant="contained"
+                size="small"
+                color="error"
+                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                onClick={() => removeRow(data.workshops, index)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            sx={{ marginTop: "10px" }}
+            onClick={() =>
+              addRow(data.workshops, { year: "", description: "" })
+            }
           >
             Add
-          </button>
+          </Button>
         </div>
       )}
 
       {activeStep === 4 && (
-        <div className="section certifications">
-          <h3 className="heading">Certifications</h3>
-          {certifications.map((item, index) => {
-            return (
-              <div className="row" key={index}>
-                <div className="item">
-                  <input
-                    type="text"
-                    name="year"
-                    placeholder="Year"
-                    value={item.year}
-                    onChange={(e) =>
-                      handleChange(e, index, certifications, "year")
-                    }
-                  />
-                  <input
-                    type="text"
-                    name="course"
-                    placeholder="Course"
-                    value={item.course}
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    onChange={(e) =>
-                      handleChange(e, index, certifications, "course")
-                    }
-                  />
-                  <input
-                    type="text"
-                    name="institution"
-                    placeholder="Institution"
-                    value={item.institution}
-                    onChange={(e) =>
-                      handleChange(e, index, certifications, "institution")
-                    }
-                  />
-                  <input
-                    type="text"
-                    name="score"
-                    placeholder="Score"
-                    value={item.score}
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    onChange={(e) =>
-                      handleChange(e, index, certifications, "score")
-                    }
-                  />
-                  <textarea
-                    name="description"
-                    cols="30"
-                    rows="5"
-                    placeholder="Description"
-                    value={item.description}
-                    onChange={(e) =>
-                      handleChange(e, index, certifications, "description")
-                    }
-                  />
-                </div>
+        // <div className="section certifications">
+        //   <h3 className="heading">Certifications</h3>
+        //   {certifications.map((item, index) => {
+        //     return (
+        //       <div className="row" key={index}>
+        //         <div className="item">
+        //           <input
+        //             type="text"
+        //             name="year"
+        //             placeholder="Year"
+        //             value={item.year}
+        //             onChange={(e) =>
+        //               handleChange(e, index, certifications, "year")
+        //             }
+        //           />
+        //           <input
+        //             type="text"
+        //             name="course"
+        //             placeholder="Course"
+        //             value={item.course}
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             onChange={(e) =>
+        //               handleChange(e, index, certifications, "course")
+        //             }
+        //           />
+        //           <input
+        //             type="text"
+        //             name="institution"
+        //             placeholder="Institution"
+        //             value={item.institution}
+        //             onChange={(e) =>
+        //               handleChange(e, index, certifications, "institution")
+        //             }
+        //           />
+        //           <input
+        //             type="text"
+        //             name="score"
+        //             placeholder="Score"
+        //             value={item.score}
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             onChange={(e) =>
+        //               handleChange(e, index, certifications, "score")
+        //             }
+        //           />
+        //           <textarea
+        //             name="description"
+        //             cols="30"
+        //             rows="5"
+        //             placeholder="Description"
+        //             value={item.description}
+        //             onChange={(e) =>
+        //               handleChange(e, index, certifications, "description")
+        //             }
+        //           />
+        //         </div>
 
-                <button
-                  className="btn btn-sm btn-danger"
-                  style={{ marginTop: "10px", marginBottom: "10px" }}
-                  onClick={(e) => removeRow(certifications, index)}
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-          <button
-            className="btn btn-sm btn-dark"
-            style={{ marginTop: "10px", marginBottom: "10px" }}
+        //         <button
+        //           className="btn btn-sm btn-danger"
+        //           style={{ marginTop: "10px", marginBottom: "10px" }}
+        //           onClick={(e) => removeRow(certifications, index)}
+        //         >
+        //           Remove
+        //         </button>
+        //       </div>
+        //     );
+        //   })}
+        //   <button
+        //     className="btn btn-sm btn-dark"
+        //     style={{ marginTop: "10px", marginBottom: "10px" }}
+        //     onClick={() =>
+        //       addRow(certifications, {
+        //         year: "",
+        //         institution: "",
+        //         course: "",
+        //         description: "",
+        //       })
+        //     }
+        //   >
+        //     Add
+        //   </button>
+        //   <h3 className="heading">Projects</h3>
+
+        //   {projects.map((item, index) => {
+        //     return (
+        //       <div className="row" key={index}>
+        //         <div className="item">
+        //           <input
+        //             type="text"
+        //             name="title"
+        //             placeholder="Title"
+        //             value={item.title}
+        //             onChange={(e) => handleChange(e, index, projects, "title")}
+        //           />
+        //           <input
+        //             type="text"
+        //             name="link"
+        //             style={{ marginTop: "10px", marginBottom: "10px" }}
+        //             placeholder="Project URL"
+        //             value={item.link}
+        //             onChange={(e) => handleChange(e, index, projects, "link")}
+        //           />
+        //           <textarea
+        //             name="description"
+        //             cols="30"
+        //             rows="5"
+        //             placeholder="Description"
+        //             value={item.description}
+        //             onChange={(e) =>
+        //               handleChange(e, index, projects, "description")
+        //             }
+        //           />
+        //         </div>
+        //         <button
+        //           className="btn btn-sm btn-danger"
+        //           style={{ marginTop: "10px", marginBottom: "10px" }}
+        //           onClick={() => removeRow(projects, index)}
+        //         >
+        //           Remove
+        //         </button>
+        //       </div>
+        //     );
+        //   })}
+        //   <button
+        //     className="btn btn-sm btn-dark"
+        //     style={{ marginTop: "10px", marginBottom: "10px" }}
+        //     onClick={() =>
+        //       addRow(projects, { title: "", link: "", description: "" })
+        //     }
+        //   >
+        //     Add
+        //   </button>
+
+        // </div>
+        <div className="section certifications">
+          <Typography
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            variant="h5"
+            className="heading"
+          >
+            Certifications
+          </Typography>
+          {data.certifications.map((item, index) => (
+            <div className="row" key={index}>
+              <Box className="item">
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="year"
+                      label="Year"
+                      value={item.year}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(e, index, data.certifications, "year")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="course"
+                      label="Course"
+                      value={item.course}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(e, index, data.certifications, "course")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="institution"
+                      label="Institution"
+                      value={item.institution}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(
+                          e,
+                          index,
+                          data.certifications,
+                          "institution"
+                        )
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="score"
+                      label="Score"
+                      value={item.score}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(e, index, data.certifications, "score")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={11}>
+                    <TextField
+                      name="description"
+                      multiline
+                      rows={5}
+                      fullWidth
+                      label="Description"
+                      value={item.description}
+                      onChange={(e) =>
+                        handleChange(
+                          e,
+                          index,
+                          data.certifications,
+                          "description"
+                        )
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+
+              <Button
+                variant="contained"
+                size="small"
+                color="error"
+                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                onClick={() => removeRow(data.certifications, index)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            sx={{ marginTop: "10px", marginBottom: "10px" }}
             onClick={() =>
-              addRow(certifications, {
+              addRow(data.certifications, {
                 year: "",
                 institution: "",
                 course: "",
+                score: "",
                 description: "",
               })
             }
           >
             Add
-          </button>
-          <h3 className="heading">Projects</h3>
+          </Button>
 
-          {projects.map((item, index) => {
-            return (
-              <div className="row" key={index}>
-                <div className="item">
-                  <input
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    value={item.title}
-                    onChange={(e) => handleChange(e, index, projects, "title")}
-                  />
-                  <input
-                    type="text"
-                    name="link"
-                    style={{ marginTop: "10px", marginBottom: "10px" }}
-                    placeholder="Project URL"
-                    value={item.link}
-                    onChange={(e) => handleChange(e, index, projects, "link")}
-                  />
-                  <textarea
-                    name="description"
-                    cols="30"
-                    rows="5"
-                    placeholder="Description"
-                    value={item.description}
-                    onChange={(e) =>
-                      handleChange(e, index, projects, "description")
-                    }
-                  />
-                </div>
-                <button
-                  className="btn btn-sm btn-danger"
-                  style={{ marginTop: "10px", marginBottom: "10px" }}
-                  onClick={() => removeRow(projects, index)}
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-          <button
-            className="btn btn-sm btn-dark"
-            style={{ marginTop: "10px", marginBottom: "10px" }}
+          <Typography
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            variant="h5"
+            className="heading"
+          >
+            Projects
+          </Typography>
+          {data.projects.map((item, index) => (
+            <div className="row" key={index}>
+              <Box className="item">
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="title"
+                      label="Title"
+                      value={item.title}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(e, index, data.projects, "title")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type="text"
+                      name="link"
+                      label="Project URL"
+                      value={item.link}
+                      size="small"
+                      onChange={(e) =>
+                        handleChange(e, index, data.projects, "link")
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={11}>
+                    <TextField
+                      name="description"
+                      multiline
+                      rows={5}
+                      fullWidth
+                      label="Description"
+                      value={item.description}
+                      onChange={(e) =>
+                        handleChange(e, index, data.projects, "description")
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+
+              <Button
+                variant="contained"
+                size="small"
+                color="error"
+                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                onClick={() => removeRow(data.projects, index)}
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            // sx={{ marginTop: "10px", marginBottom: "10px" }}
             onClick={() =>
-              addRow(projects, { title: "", link: "", description: "" })
+              addRow(data.projects, {
+                title: "",
+                link: "",
+                description: "",
+              })
             }
           >
             Add
-          </button>
-          {/* <input
-            type="text"
-            name="projects_link"
-            placeholder="URL of More Projects"
-            value={projects_link}
-            onChange={(e) =>
-              setData({ ...data, projects_link: e.target.value })
-            }
-          /> */}
+          </Button>
         </div>
       )}
 
@@ -932,7 +1795,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
           </Button>
         )}
       </Stack>
-    </Paper>
+    </Box>
   );
 };
 

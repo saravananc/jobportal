@@ -1,6 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   Typography,
@@ -49,8 +49,7 @@ const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  //   textAlign: "center",
-  // border: "1px solid #D3D3D3",
+ 
   borderRadius: "10px",
   color: theme.palette.text.secondary,
 }));
@@ -92,6 +91,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const JobSearch = () => {
+  const navigate = useNavigate();
   const cardStyle = {
     maxWidth: 345,
     margin: "10px",
@@ -296,8 +296,9 @@ const JobSearch = () => {
                         },
                       }}
                       variant="outlined"
+                      onClick={()=>navigate("/jobdescription")}
                     >
-                      <CardActionArea>
+                      <CardActionArea >
                         <CardContent>
                           <CardActions>
                             <div>

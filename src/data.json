@@ -1,14 +1,14 @@
 {
   "contact": {
-    "name": "Name",
-    "photoUrl": "https://cdn0.iconfinder.com/data/icons/user-pictures/100/malecostume-512.png",
-    "location": "Tiruchengode Namakkal",
-    "phone": "+91 0123456789",
-    "email": "email@example.com",
-    "linkedin": "linkedin.com/in/name",
-    "github": "github.com/name",
-    "password":"password",
-    "confirmPassword": "Password"
+    "name": " ",
+    "photoUrl": "",
+    "location": "",
+    "phone": "",
+    "email": "",
+    "linkedin": "",
+    "github": "",
+    "password":"",
+    "confirmPassword": ""
 
   },
 
@@ -16,31 +16,25 @@
 
   "education": [
     {
-      "year": "Aug 2014 - Aug 2018",
-      "course": "B.E. (Computer Science & Engineering)",
-      "institution": "Example college of engineering" ,
-      "university": "Anna University",
-      "percentage": "87"
+      "year": "",
+      "course": "",
+      "institution": "" ,
+      "university": "",
+      "percentage": ""
     },
     {
-      "year": "May 2014",
-      "course": "12th (PCM + CS)",
-      "institution": "Example School",
-      "university": "MATRIC",
-      "percentage": "92.5"
-    },
-    {
-      "year": "May 2012",
-      "course": "10th",
-      "institution": "Random Public School, Tamilnadu",
-      "university": "MATRIC",
-      "percentage": "10"
+      "year": "",
+      "course": "",
+      "institution": "",
+      "university": "",
+      "percentage": ""
     }
+  
   ],
 
   "languages": [
-    { "language": "English", "level": 5 },
-    { "language": "Tamil", "level": 5 }
+    { "language": "", "level": 5 },
+    { "language": "", "level": 5 }
     
   ],
 
