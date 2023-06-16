@@ -70,6 +70,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
   };
 
   const [skills, setSkills] = useState("");
+  
   useEffect(() => {
     let temp = "";
     data.skills.map((item) => (temp = temp + item + ","));
@@ -298,9 +299,39 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
   };
 
   const isLastStep = activeStep === steps.length - 1;
+
   // Function to handle register button click
+  // const handleRegister = () => {
+  //   console.log(data);
+  // };
+
   const handleRegister = () => {
-    console.log(data);
+    data.skills = [{ Skill: skills }];
+   data.objective=[{Objectives: objective}];
+  //  data.contact = [data.contact];
+  data.name = name;
+  data.photoUrl = photoUrl;
+  data.location = location;
+  data.phone = phone;
+  data.email = email;
+  data.linkedin = linkedin;
+  data.github = github;
+  data.password = password;
+  
+    console.log(data, "datadata");
+    fetch("https://localhost:7138/api/Contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        console.log("Registration successful", response);
+      })
+      .catch((error) => {
+        console.error("Error occurred during registration:", error);
+      });
   };
 
   const [passwordError, setPasswordError] = useState("");

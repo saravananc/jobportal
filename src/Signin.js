@@ -12,6 +12,7 @@ import "../src/App.css";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { Imagesfile } from "./Images/Images";
 
+
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +27,8 @@ const Signin = () => {
   };
 
   const handleSignIn = () => {
+
+   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email.trim() === "" || password.trim() === "") {
@@ -39,14 +42,36 @@ const Signin = () => {
           "Password must be at least 6 characters long and contain at least one number."
         );
       } else {
-        // Call the login API with the email and password
-        // Replace the following code with your actual API call
+    
         console.log("Email:", email);
         console.log("Password:", password);
-        // Your API call here
+
+       
+        const signInData = {
+          email: email,
+          password: password,
+        };
+  
+        fetch("https://localhost:7138/api/Login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signInData),
+          })
+            .then((response) => {
+              console.log("Signin successful", response);
+             
+            })
+            .catch((error) => {
+              console.error("Error occurred during Signin", error);
+            });
+
+        }
       }
-    }
-  };
+      };
+        
+    
 
   return (
     <>
@@ -143,7 +168,7 @@ const Signin = () => {
                     variant="contained"
                     sx={{backgroundColor:"#6936F5"}}
                     onClick={handleSignIn}
-                    href="/"
+                    
                   >
                     Signin
                   </Button>

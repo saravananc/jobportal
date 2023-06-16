@@ -2,6 +2,8 @@ import React from 'react';
 
 const Skills = ({ data, color }) => {
   const skills = data.skills;
+
+ 
   return (
     <div className='skills'>
       <p className='heading' style={{ color: `${color.primary}` }}>

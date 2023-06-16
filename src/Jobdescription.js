@@ -202,7 +202,7 @@ const Jobdescription = () => {
                         >
                           Register To Apply
                         </Button>
-                        <Button
+                        <Button 
                           variant="contained"
                           sx={{
                             marginLeft: "auto",
@@ -214,6 +214,7 @@ const Jobdescription = () => {
                           Login To Apply
                         </Button>
                       </CardActions>
+                     
                     </Card>
                   </Box>
                 ))}

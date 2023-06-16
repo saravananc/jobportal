@@ -212,7 +212,7 @@ const JobSearch = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1, m: 3 }}>
+      <Box sx={{ flexGrow: 1, padding: { xs: 0, md: 3 },}}>
         <Grid container spacing={1}>
           <Grid
             item

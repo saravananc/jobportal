@@ -6,7 +6,7 @@ import Languages from '../src/components/sections/Languages';
 
 const LeftContent = ({ data, color }) => {
 
-  console.log(color);
+  // console.log(color);
 
   const check = (item) => {
     if (item && item.length > 0) {
