@@ -1,203 +1,151 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Link,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useState } from "react";
-import "../src/App.css";
+import { Box, Button, Grid, Link, Paper, TextField, Typography } from "@mui/material";
+import React from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { Imagesfile } from "./Images/Images";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { BrowserRouter, Route, Routes, Link as RouterLink, useNavigate } from "react-router-dom";
 
+const schema = yup.object().shape({
+  Email: yup.string().required("Email is required.").email("Please enter a valid email."),
+  password: yup
+    .string()
+    .required("Password is required.")
+    .min(6, "Password must be at least 6 characters long.")
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, "Password must contain at least one number."),
+});
 
 const Signin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid, isDirty },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const navigate = useNavigate();
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSignIn = () => {
-
+  const onSubmit = (signInData) => {
    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(signInData);
+    fetch("https://localhost:7138/api/Login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(signInData),
+    })
+      .then((response) => {
+        console.log("Signin successful", response);
+      })
+      .catch((error) => {
+        console.error("Error occurred during Signin", error);
+      });
 
-    if (email.trim() === "" || password.trim() === "") {
-      setError("Email and password are required.");
-    } else if (!emailRegex.test(email)) {
-      setError("Invalid email format.");
-    } else {
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-      if (!passwordRegex.test(password)) {
-        setError(
-          "Password must be at least 6 characters long and contain at least one number."
-        );
-      } else {
+    navigate("/jobsearch");
+  };
+
+
+
+ 
     
-        console.log("Email:", email);
-        console.log("Password:", password);
-
-       
-        const signInData = {
-          email: email,
-          password: password,
-        };
   
-        fetch("https://localhost:7138/api/Login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(signInData),
-          })
-            .then((response) => {
-              console.log("Signin successful", response);
-             
-            })
-            .catch((error) => {
-              console.error("Error occurred during Signin", error);
-            });
-
-        }
-      }
-      };
-        
-    
 
   return (
+
     <>
-     
-      <Grid container spacing={1} sx={{ mt: 1, height:"455px"}} >
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{ display: { xs: "none", sm: "none", md: "block" } }}
-        >
-          <Paper elevation={0}>
-            <Player
-              autoplay
-              loop
-              src={Imagesfile.loginLeft}
-              style={{ height: "400px", width: "500px" }}
-            ></Player>
-          </Paper>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          // sx={{
-          //   background: "linear-gradient(45deg, #6936f599 10%, #f7d8ffb5 90%)",
-          // }}
-
-          // style={{
-          //   backgroundImage: `url(${Imagesfile.Signinbg})`,
-          //   backgroundSize: "100% 100%",
-          // }}
-        >
-          <Paper
-            elevation={4}
-            sx={{
-              margin: "auto",
-              height: "380px",
-              width: "320px",
-              background:
-                "radial-gradient(circle at center, rgba(216, 216, 216, 0.5) 0%, rgba(227, 228, 229, 0.2) 50%, rgba(227, 228, 229, 0) 100%)",
-            }}
-          >
-            <Box sx={{ textAlign: "center", mt: 6 }}>
-              <Grid
-                container
-                spacing={3}
-                direction={"column"}
-                justify={"center"}
-                alignItems={"center"}
-              >
-                <Typography variant="h5" sx={{ fontWeight: "bold", mt: 5 }}>
-                  Log In Here!
-                </Typography>
-                <Grid item xs={12}>
-                  <TextField
-                    size="small"
-                    label="Email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    error={
-                      error !== "" &&
-                      (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
-                    }
-                    helperText={
-                      error !== "" &&
-                      (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
-                        ? "Invalid email format."
-                        : ""
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    size="small"
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    error={error !== "" && !password}
-                    helperText={
-                      error !== "" && !password ? "Password is required." : ""
-                    }
-                  />
-                </Grid>
-                {error && (
+        <Grid container spacing={1} sx={{ mt: 1, height: "455px" }}>
+          <Grid item xs={12} md={6} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+            <Paper elevation={0}>
+              <Player
+                autoplay
+                loop
+                src={Imagesfile.loginLeft}
+                style={{ height: "400px", width: "500px" }}
+              ></Player>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper
+              elevation={4}
+              sx={{
+                margin: "auto",
+                height: "400px",
+                width: "320px",
+                background:
+                  "radial-gradient(circle at center, rgba(216, 216, 216, 0.5) 0%, rgba(227, 228, 229, 0.2) 50%, rgba(227, 228, 229, 0) 100%)",
+              }}
+            >
+              <Box sx={{ textAlign: "center", mt: 6 }}>
+                <Grid
+                  container
+                  spacing={3}
+                  direction={"column"}
+                  justify={"center"}
+                  alignItems={"center"}
+                >
+                  <Typography variant="h5" sx={{ fontWeight: "bold", mt: 3 }}>
+                    Log In Here!
+                  </Typography>
                   <Grid item xs={12}>
-                    <Typography color="error">{error}</Typography>
+                    <TextField size="small" label="Email" {...register("Email")} />
+                    {/* {errors.Email && <span style={{ color: "red" }}>{errors.Email.message}</span>} */}
                   </Grid>
-                )}
-                <Grid item xs={12}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    sx={{backgroundColor:"#6936F5"}}
-                    onClick={handleSignIn}
-                    
-                  >
-                    Signin
-                  </Button>
+                  <Grid item xs={12}>
+                  
+                    {errors.Email && <span style={{ color: "red" }}>{errors.Email.message}</span>}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      size="small"
+                      label="Password"
+                      type="password"
+                      {...register("password")}
+                    />
+                    {/* {errors.password && (
+                      <span style={{ color: "red" }}>{errors.password.message}</span>
+                    )} */}
+                  </Grid>
+                  <Grid item xs={12}>
+                
+                    {errors.password && <span style={{ color: "red" }}>{errors.password.message}</span>}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      sx={{ backgroundColor: "#6936F5" }}
+                      type="submit"
+                      disabled={isDirty && !isValid}
+                      onClick={handleSubmit(onSubmit)}
+                    >
+                      Signin
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="body2">
+                      <Link href="#" color="inherit">
+                        Forgot password?
+                      </Link>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="body2">
+                      Don't have an account?{" "}
+                      <RouterLink to="/signup" color="inherit">
+                        Sign Up
+                      </RouterLink>
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body2">
-                    <Link href="#" color="inherit">
-                      Forgot password?
-                    </Link>
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body2">
-                    Don't have an account?{" "}
-                    <Link href="/signup" color="inherit">
-                      Sign Up
-                    </Link>
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Box>
-          </Paper>
-       
+              </Box>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-
-
-
-    </>
+      </>
   );
 };
 

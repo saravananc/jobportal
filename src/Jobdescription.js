@@ -107,6 +107,9 @@ const cardDatajobs = [
 
   // Add more card data objects as needed
 ];
+
+
+
 const Jobdescription = () => {
   return (
     <>
@@ -191,7 +194,7 @@ const Jobdescription = () => {
                         <Typography sx={{ fontSize: "12px" }}>
                           {data.timestamp}
                         </Typography>
-                        <Button
+                        {/* <Button
                           variant="outlined"
                           sx={{
                             marginLeft: "auto",
@@ -201,7 +204,7 @@ const Jobdescription = () => {
                           }}
                         >
                           Register To Apply
-                        </Button>
+                        </Button> */}
                         <Button 
                           variant="contained"
                           sx={{
@@ -211,7 +214,7 @@ const Jobdescription = () => {
                             backgroundColor: "#6936F5",
                           }}
                         >
-                          Login To Apply
+                          Apply
                         </Button>
                       </CardActions>
                      

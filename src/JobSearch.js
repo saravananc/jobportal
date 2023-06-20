@@ -121,41 +121,68 @@ const JobSearch = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const cardData = [
-    {
-      title: "Marketing Operations Manager",
-      companyName: "Google",
-      experience: "3-5 Years",
-      salary: "Not disclosed",
-      locations: "Chennai, Bangalore",
-      description:
-        "4+ years experience in marketing operations (consumer or higher educa...)",
-      skills: "Email, CRM, Salesforce, Science",
-      timestamp: "1 Day Ago",
-    },
-    {
-      title: "Full Stack Developer",
-      companyName: "Cidc",
-      experience: "3-5 Years",
-      salary: "Not disclosed",
-      locations: "Chennai, Bangalore",
-      description: "3+ years experience in developing web applications",
-      skills: "Reactjs, Nodejs, AWS, .NET",
-      timestamp: "5 Day Ago",
-    },
-    {
-      title: "Marketing Operations Manager",
-      companyName: "Apple Inc",
-      experience: "3-5 Years",
-      salary: "Not disclosed",
-      locations: "Chennai, Bangalore",
-      description:
-        "8+ years experience in marketing operations (consumer or higher educa...)",
-      skills: "Email, CRM, Salesforce, Science",
-      timestamp: "1 Day Ago",
-    },
-    // Add more card data objects as needed
-  ];
+  // const cardData = [
+  //   {
+  //     title: "Marketing Operations Manager",
+  //     companyName: "Google",
+  //     experience: "3-5 Years",
+  //     salary: "Not disclosed",
+  //     locations: "Chennai, Bangalore",
+  //     description:
+  //       "4+ years experience in marketing operations (consumer or higher educa...)",
+  //     skills: "Email, CRM, Salesforce, Science",
+  //     timestamp: "1 Day Ago"
+  //   },
+  //   {
+  //     title: "Full Stack Developer",
+  //     companyName: "Cidc",
+  //     experience: "3-5 Years",
+  //     salary: "Not disclosed",
+  //     locations: "Chennai, Bangalore",
+  //     description: "3+ years experience in developing web applications",
+  //     skills: "Reactjs, Nodejs, AWS, .NET",
+  //     timestamp: "5 Day Ago"
+  //   },
+  //   {
+  //     title: "Marketing Operations Manager",
+  //     companyName: "Apple Inc",
+  //     experience: "3-5 Years",
+  //     salary: "Not disclosed",
+  //     locations: "Chennai, Bangalore",
+  //     description:
+  //       "8+ years experience in marketing operations (consumer or higher educa...)",
+  //     skills: "Email, CRM, Salesforce, Science",
+  //     timestamp: "1 Day Ago"
+  //   },
+  //   // Add more card data objects as needed
+  // ];
+
+  const [cardData, setCardData] = React.useState([]);
+  
+  React.useEffect(() => {
+    fetch("https://localhost:7138/api/Jobs", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error occurred during the API call.");
+        }
+      })
+      .then((data) => {
+        console.log("Data fetched successfully:", data);
+        setCardData(data);
+      })
+      .catch((error) => {
+        console.error("Error occurred during the API call:", error);
+      });
+  }, []);
+
+  console.log(cardData,"carddata");
 
   const [checkboxOptions, setCheckboxOptions] = React.useState([
     {
@@ -171,9 +198,9 @@ const JobSearch = () => {
       id: "panel2",
       heading: "Company",
       options: [
-        { label: "Indian MNC" },
-        { label: "Startup" },
-        { label: "Foreign MNC" },
+        { label: "Google" },
+        { label: "Apple" },
+        { label: "CIDC" },
       ],
     },
     {
@@ -187,12 +214,12 @@ const JobSearch = () => {
     },
     {
       id: "panel4",
-      heading: "Department",
+      heading: "Skills",
       options: [
-        { label: "Marketing" },
-        { label: "HR" },
-        { label: "Engineering" },
-        { label: "UX Design" },
+        { label: "Reactjs" },
+        { label: ".NET" },
+        { label: "Nodejs" },
+        { label: "UXUI" },
       ],
     },
   ]);
@@ -281,9 +308,13 @@ const JobSearch = () => {
                 Search : Marketing Jobs(500 jobs)
               </Typography>
 
-              <div>
+              {/* <div>
+                
                 {cardData.map((data, index) => (
+
+                 
                   <Box key={index} sx={{ minWidth: 275 }}>
+                     
                     <Card
                       sx={{
                         borderRadius: "15px",
@@ -367,16 +398,92 @@ const JobSearch = () => {
                           <Typography sx={{ fontSize: "12px" }}>
                             {data.timestamp}
                           </Typography>
-                          <Button sx={{ marginLeft: "auto" }} size="small">
-                            <NavigationIcon />
-                            Save
-                          </Button>
+                         
                         </CardActions>
                       </CardActionArea>
                     </Card>
                   </Box>
                 ))}
+              </div> */}
+              <div>
+  {cardData.map((data, index) => (
+    <Box key={index} sx={{ minWidth: 275 }}>
+      <Card
+        sx={{
+          borderRadius: "15px",
+          mt: 1,
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+          transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+          "&:hover": {
+            boxShadow: "0px 15px 20px rgba(0, 0, 0, 0.3)",
+          },
+        }}
+        variant="outlined"
+        onClick={() => navigate("/jobdescription")}
+      >
+        <CardActionArea>
+          <CardContent>
+            <CardActions>
+              <div>
+                <Typography sx={{ fontSize: 20 }} gutterBottom>
+                  {data.title}
+                </Typography>
+                <Typography sx={{ mb: 1.5, color: "text.secondary" }}>
+                  {data.companies[0].name}
+                </Typography>
               </div>
+              <div style={{ marginLeft: "auto" }}>
+                <Avatar
+                  sx={{
+                    backgroundColor: "orange",
+                  }}
+                  aria-label="companyname"
+                >
+                  {data.companies[0].name.substring(0, 2).toUpperCase()}
+                </Avatar>
+              </div>
+            </CardActions>
+
+            <Stack direction="row" spacing={1}>
+              <Chip
+                sx={{ backgroundColor: "white" }}
+                icon={<WorkIcon style={{ color: "#478CF7" }} />}
+                label={data.openings[0].experience}
+              />
+              <Chip
+                sx={{ backgroundColor: "white" }}
+                icon={<CurrencyRupeeIcon style={{ color: "#FFB300" }} />}
+                label={data.salary}
+              />
+              <Chip
+                sx={{ backgroundColor: "white" }}
+                icon={<LocationOnIcon style={{ color: "blueviolet" }} />}
+                label={data.openings[0].location}
+              />
+            </Stack>
+            <Stack direction="row" spacing={1}>
+              <Chip
+                sx={{ backgroundColor: "white" }}
+                icon={<DescriptionIcon style={{ color: "lightblue" }} />}
+                label={data.description}
+              />
+            </Stack>
+            <Typography sx={{ mt: 1 }} color="text.secondary">
+              {data.skills.map((skill) => skill.name).join(", ")}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Typography sx={{ fontSize: "12px" }}>
+              {data.timestamp}
+            </Typography>
+          </CardActions>
+        </CardActionArea>
+      </Card>
+    </Box>
+  ))}
+</div>
+
+
             </Item>
           </Grid>
           <Grid item xs={12} md={3}>
