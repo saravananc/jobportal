@@ -49,7 +49,7 @@ const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
- 
+
   borderRadius: "10px",
   color: theme.palette.text.secondary,
 }));
@@ -157,9 +157,160 @@ const JobSearch = () => {
   //   // Add more card data objects as needed
   // ];
 
+  // const [cardData, setCardData] = React.useState([]);
+
+  // React.useEffect(() => {
+  //   fetch("https://localhost:7138/api/Jobs", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         throw new Error("Error occurred during the API call.");
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log("Data fetched successfully:", data);
+  //       setCardData(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error occurred during the API call:", error);
+  //     });
+  // }, []);
+
+  // console.log(cardData, "carddata");
+
+  // const handleFilter = () => {
+  //   const selectedWorkModes = [];
+  //   const selectedCompanies = [];
+  //   const selectedLocations = [];
+  //   const selectedSkills = [];
+
+  //   checkboxOptions.forEach((panel) => {
+  //     panel.options.forEach((option) => {
+  //       if (option.checked) {
+  //         switch (panel.heading) {
+  //           case "Work Mode":
+  //             selectedWorkModes.push(option.label.toLowerCase());
+  //             break;
+  //           case "Company":
+  //             selectedCompanies.push(option.label);
+  //             break;
+  //           case "Location":
+  //             selectedLocations.push(option.label);
+  //             break;
+  //           case "Skills":
+  //             selectedSkills.push(option.label.toLowerCase());
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       }
+  //     });
+  //   });
+
+  //   const queryParams = new URLSearchParams();
+
+  //   if (selectedWorkModes.length > 0) {
+  //     queryParams.append("workModeOptions", selectedWorkModes.join());
+  //   }
+
+  //   if (selectedCompanies.length > 0) {
+  //     queryParams.append("companyOptions", selectedCompanies.join());
+  //   }
+
+  //   if (selectedLocations.length > 0) {
+  //     queryParams.append("locationOptions", selectedLocations.join());
+  //   }
+
+  //   if (selectedSkills.length > 0) {
+  //     queryParams.append("skillOptions", selectedSkills.join());
+  //   }
+
+  //   const url = `https://localhost:7138/api/Jobs?${queryParams.toString()}`;
+
+  //   fetch(url, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         throw new Error("Error occurred during the API call.");
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log("Filtered Data:", data);
+  //       setCardData(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error occurred during the API call:", error);
+  //     });
+  // };
+
+  // const [checkboxOptions, setCheckboxOptions] = React.useState([
+  //   {
+  //     id: "panel1",
+  //     heading: "Work Mode",
+  //     options: [
+  //       { label: "Work From Home" },
+  //       { label: "Remote" },
+  //       { label: "Hybrid" },
+  //     ],
+  //   },
+  //   {
+  //     id: "panel2",
+  //     heading: "Company",
+  //     options: [{ label: "Google" }, { label: "Apple" }, { label: "CIDC" }],
+  //   },
+  //   {
+  //     id: "panel3",
+  //     heading: "Location",
+  //     options: [
+  //       { label: "Chennai" },
+  //       { label: "Bangalore" },
+  //       { label: "Velur" },
+  //     ],
+  //   },
+  //   {
+  //     id: "panel4",
+  //     heading: "Skills",
+  //     options: [
+  //       { label: "Reactjs" },
+  //       { label: ".NET" },
+  //       { label: "Nodejs" },
+  //       { label: "UXUI" },
+  //     ],
+  //   },
+  // ]);
+
+  // const handleCheckboxChange = (panelIndex, optionIndex) => (event) => {
+  //   const updatedOptions = [...checkboxOptions];
+  //   updatedOptions[panelIndex].options[optionIndex].checked =
+  //     event.target.checked;
+  //   setCheckboxOptions(updatedOptions);
+
+  //   console.log(
+  //     `${checkboxOptions[panelIndex].heading} - ${
+  //       checkboxOptions[panelIndex].options[optionIndex].label
+  //     } ${event.target.checked ? "checked" : "unchecked"}`
+  //   );
+  // };
+
   const [cardData, setCardData] = React.useState([]);
-  
+
   React.useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     fetch("https://localhost:7138/api/Jobs", {
       method: "GET",
       headers: {
@@ -180,46 +331,117 @@ const JobSearch = () => {
       .catch((error) => {
         console.error("Error occurred during the API call:", error);
       });
-  }, []);
+  };
 
-  console.log(cardData,"carddata");
+  console.log(cardData, "carddata");
+
+  const handleFilter = () => {
+    const selectedWorkModes = [];
+    const selectedCompanies = [];
+    const selectedLocations = [];
+    const selectedSkills = [];
+
+    checkboxOptions.forEach((panel) => {
+      panel.options.forEach((option) => {
+        if (option.checked) {
+          switch (panel.heading) {
+            case "Work Mode":
+              selectedWorkModes.push(option.label.toLowerCase());
+              break;
+            case "Company":
+              selectedCompanies.push(option.label);
+              break;
+            case "Location":
+              selectedLocations.push(option.label);
+              break;
+            case "Skills":
+              selectedSkills.push(option.label.toLowerCase());
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    });
+
+    const queryParams = new URLSearchParams();
+
+    if (selectedWorkModes.length > 0) {
+      queryParams.append("workModeOptions", selectedWorkModes.join());
+    }
+
+    if (selectedCompanies.length > 0) {
+      queryParams.append("companyOptions", selectedCompanies.join());
+    }
+
+    if (selectedLocations.length > 0) {
+      queryParams.append("locationOptions", selectedLocations.join());
+    }
+
+    if (selectedSkills.length > 0) {
+      queryParams.append("skillOptions", selectedSkills.join());
+    }
+
+    const url = `https://localhost:7138/api/Jobs?${queryParams.toString()}`;
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error occurred during the API call.");
+        }
+      })
+      .then((data) => {
+        console.log("Filtered Data:", data);
+        setCardData(data);
+      })
+      .catch((error) => {
+        console.error("Error occurred during the API call:", error);
+      });
+  };
 
   const [checkboxOptions, setCheckboxOptions] = React.useState([
     {
       id: "panel1",
       heading: "Work Mode",
       options: [
-        { label: "Work From Home" },
-        { label: "Remote" },
-        { label: "Hybrid" },
+        { label: "WorkFromHome", checked: false },
+        { label: "Remote", checked: false },
+        { label: "Hybrid", checked: false },
       ],
     },
     {
       id: "panel2",
       heading: "Company",
       options: [
-        { label: "Google" },
-        { label: "Apple" },
-        { label: "CIDC" },
+        { label: "Google", checked: false },
+        { label: "Apple", checked: false },
+        { label: "CIDC", checked: false },
       ],
     },
     {
       id: "panel3",
       heading: "Location",
       options: [
-        { label: "Chennai" },
-        { label: "Bangalore" },
-        { label: "Velur" },
+        { label: "Chennai", checked: false },
+        { label: "Bangalore", checked: false },
+        { label: "Velur", checked: false },
       ],
     },
     {
       id: "panel4",
       heading: "Skills",
       options: [
-        { label: "Reactjs" },
-        { label: ".NET" },
-        { label: "Nodejs" },
-        { label: "UXUI" },
+        { label: "Reactjs", checked: false },
+        { label: ".NET", checked: false },
+        { label: "Nodejs", checked: false },
+        { label: "UXUI", checked: false },
       ],
     },
   ]);
@@ -239,12 +461,13 @@ const JobSearch = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1, padding: { xs: 0, md: 3 },}}>
+      <Box sx={{ flexGrow: 1, padding: { xs: 0, md: 3 } }}>
         <Grid container spacing={1}>
           <Grid
             item
             xs={12}
             md={3}
+            sx={{ textAlign: "center" }}
             // sx={{border: '1px solid black'}}
           >
             <Item elevation={6}>
@@ -289,6 +512,7 @@ const JobSearch = () => {
                                   panelIndex,
                                   optionIndex
                                 )}
+                                checked={option.checked}
                                 inputProps={{ "aria-label": "controlled" }}
                               />
                             }
@@ -299,22 +523,22 @@ const JobSearch = () => {
                     </AccordionDetails>
                   </Accordion>
                 ))}
+                <Button variant="contained" onClick={handleFilter}>
+                  Apply Filters
+                </Button>
               </div>
             </Item>
           </Grid>
           <Grid item xs={12} md={6}>
             <Item>
               <Typography color="blueviolet" variant="subtitle2" gutterBottom>
-                Search : Marketing Jobs(500 jobs)
+                Search : {cardData.length} jobs
               </Typography>
 
-              {/* <div>
-                
+            
+              <div>
                 {cardData.map((data, index) => (
-
-                 
                   <Box key={index} sx={{ minWidth: 275 }}>
-                     
                     <Card
                       sx={{
                         borderRadius: "15px",
@@ -327,9 +551,9 @@ const JobSearch = () => {
                         },
                       }}
                       variant="outlined"
-                      onClick={()=>navigate("/jobdescription")}
+                      onClick={() => navigate(`/jobsearch/jobdescription/${data?.id}`)}
                     >
-                      <CardActionArea >
+                      <CardActionArea>
                         <CardContent>
                           <CardActions>
                             <div>
@@ -339,7 +563,7 @@ const JobSearch = () => {
                               <Typography
                                 sx={{ mb: 1.5, color: "text.secondary" }}
                               >
-                                {data.companyName}
+                                {data.companies[0].name}
                               </Typography>
                             </div>
                             <div style={{ marginLeft: "auto" }}>
@@ -349,7 +573,9 @@ const JobSearch = () => {
                                 }}
                                 aria-label="companyname"
                               >
-                                {data.companyName.substring(0, 2).toUpperCase()}
+                                {data.companies[0].name
+                                  .substring(0, 2)
+                                  .toUpperCase()}
                               </Avatar>
                             </div>
                           </CardActions>
@@ -358,7 +584,7 @@ const JobSearch = () => {
                             <Chip
                               sx={{ backgroundColor: "white" }}
                               icon={<WorkIcon style={{ color: "#478CF7" }} />}
-                              label={data.experience}
+                              label={data.openings[0].experience}
                             />
                             <Chip
                               sx={{ backgroundColor: "white" }}
@@ -376,10 +602,17 @@ const JobSearch = () => {
                                   style={{ color: "blueviolet" }}
                                 />
                               }
-                              label={data.locations}
+                              label={data.openings[0].location}
+                            />
+                            <Chip
+                              sx={{ backgroundColor: "white" }}
+                              icon={
+                                <NavigationIcon style={{ color: "pink" }} />
+                              }
+                              label={data.workMode[0].name}
                             />
                           </Stack>
-                          <Stack direction="row" spacing={1} >
+                          <Stack direction="row" spacing={1}>
                             <Chip
                               sx={{ backgroundColor: "white" }}
                               icon={
@@ -391,99 +624,19 @@ const JobSearch = () => {
                             />
                           </Stack>
                           <Typography sx={{ mt: 1 }} color="text.secondary">
-                            {data.skills}
+                            {data.skills.map((skill) => skill.name).join(", ")}
                           </Typography>
                         </CardContent>
                         <CardActions>
                           <Typography sx={{ fontSize: "12px" }}>
                             {data.timestamp}
                           </Typography>
-                         
                         </CardActions>
                       </CardActionArea>
                     </Card>
                   </Box>
                 ))}
-              </div> */}
-              <div>
-  {cardData.map((data, index) => (
-    <Box key={index} sx={{ minWidth: 275 }}>
-      <Card
-        sx={{
-          borderRadius: "15px",
-          mt: 1,
-          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
-          "&:hover": {
-            boxShadow: "0px 15px 20px rgba(0, 0, 0, 0.3)",
-          },
-        }}
-        variant="outlined"
-        onClick={() => navigate("/jobdescription")}
-      >
-        <CardActionArea>
-          <CardContent>
-            <CardActions>
-              <div>
-                <Typography sx={{ fontSize: 20 }} gutterBottom>
-                  {data.title}
-                </Typography>
-                <Typography sx={{ mb: 1.5, color: "text.secondary" }}>
-                  {data.companies[0].name}
-                </Typography>
               </div>
-              <div style={{ marginLeft: "auto" }}>
-                <Avatar
-                  sx={{
-                    backgroundColor: "orange",
-                  }}
-                  aria-label="companyname"
-                >
-                  {data.companies[0].name.substring(0, 2).toUpperCase()}
-                </Avatar>
-              </div>
-            </CardActions>
-
-            <Stack direction="row" spacing={1}>
-              <Chip
-                sx={{ backgroundColor: "white" }}
-                icon={<WorkIcon style={{ color: "#478CF7" }} />}
-                label={data.openings[0].experience}
-              />
-              <Chip
-                sx={{ backgroundColor: "white" }}
-                icon={<CurrencyRupeeIcon style={{ color: "#FFB300" }} />}
-                label={data.salary}
-              />
-              <Chip
-                sx={{ backgroundColor: "white" }}
-                icon={<LocationOnIcon style={{ color: "blueviolet" }} />}
-                label={data.openings[0].location}
-              />
-            </Stack>
-            <Stack direction="row" spacing={1}>
-              <Chip
-                sx={{ backgroundColor: "white" }}
-                icon={<DescriptionIcon style={{ color: "lightblue" }} />}
-                label={data.description}
-              />
-            </Stack>
-            <Typography sx={{ mt: 1 }} color="text.secondary">
-              {data.skills.map((skill) => skill.name).join(", ")}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Typography sx={{ fontSize: "12px" }}>
-              {data.timestamp}
-            </Typography>
-          </CardActions>
-        </CardActionArea>
-      </Card>
-    </Box>
-  ))}
-</div>
-
-
             </Item>
           </Grid>
           <Grid item xs={12} md={3}>
