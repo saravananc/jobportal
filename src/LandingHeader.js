@@ -65,7 +65,7 @@ const LandingHeader = ({ isLoggedIn }) => {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: "flox", md: "none" },
               }}
             >
               {pages.map((page) => (

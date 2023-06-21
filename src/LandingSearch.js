@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -25,14 +25,14 @@ import { Imagesfile } from "./Images/Images";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styled, { keyframes, css } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 
 const LandingSearch = () => {
   const navigate = useNavigate();
-  const [Years, setYears] = React.useState("");
+  const [Skills, setSkills] = React.useState("");
 
   const handleChange = (event) => {
-    setYears(event.target.value);
+    setSkills(event.target.value);
   };
   const jobcategory = [
     "Remote",
@@ -47,15 +47,60 @@ const LandingSearch = () => {
   ];
 
   const companycategory = [
-    { category: "MNCs", image: Imagesfile.mnc,image1: Imagesfile.Bank,image2: Imagesfile.Fintech },
-    { category: "Product", image: Imagesfile.mnc,image1: Imagesfile.Fintech,image2: Imagesfile.Edu  },
-    { category: "Banking & Finance", image: Imagesfile.Bank,image1: Imagesfile.B2C,image2: Imagesfile.mnc  },
-    { category: "Hospitality", image: Imagesfile.Edu,image1: Imagesfile.Fintech,image2: Imagesfile.Bank },
-    { category: "Fintech", image: Imagesfile.Fintech,image1: Imagesfile.Edu,image2: Imagesfile.mnc },
-    { category: "Startups", image: Imagesfile.B2C,image1: Imagesfile.Fintech,image2: Imagesfile.Edu  },
-    { category: "Edtech", image: Imagesfile.Edu,image1: Imagesfile.B2C,image2: Imagesfile.mnc  },
-    { category: "Internet", image: Imagesfile.Fintech,image1: Imagesfile.Bank,image2: Imagesfile.Fintech  },
-    { category: "B2C", image: Imagesfile.B2C,image1: Imagesfile.Fintech,image2: Imagesfile.Edu },
+    {
+      category: "MNCs",
+      image: Imagesfile.mnc,
+      image1: Imagesfile.Bank,
+      image2: Imagesfile.Fintech,
+    },
+    {
+      category: "Product",
+      image: Imagesfile.mnc,
+      image1: Imagesfile.Fintech,
+      image2: Imagesfile.Edu,
+    },
+    {
+      category: "Banking & Finance",
+      image: Imagesfile.Bank,
+      image1: Imagesfile.B2C,
+      image2: Imagesfile.mnc,
+    },
+    {
+      category: "Hospitality",
+      image: Imagesfile.Edu,
+      image1: Imagesfile.Fintech,
+      image2: Imagesfile.Bank,
+    },
+    {
+      category: "Fintech",
+      image: Imagesfile.Fintech,
+      image1: Imagesfile.Edu,
+      image2: Imagesfile.mnc,
+    },
+    {
+      category: "Startups",
+      image: Imagesfile.B2C,
+      image1: Imagesfile.Fintech,
+      image2: Imagesfile.Edu,
+    },
+    {
+      category: "Edtech",
+      image: Imagesfile.Edu,
+      image1: Imagesfile.B2C,
+      image2: Imagesfile.mnc,
+    },
+    {
+      category: "Internet",
+      image: Imagesfile.Fintech,
+      image1: Imagesfile.Bank,
+      image2: Imagesfile.Fintech,
+    },
+    {
+      category: "B2C",
+      image: Imagesfile.B2C,
+      image1: Imagesfile.Fintech,
+      image2: Imagesfile.Edu,
+    },
   ];
 
   const settings = {
@@ -130,7 +175,80 @@ const LandingSearch = () => {
     "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/f50ae7cbf6cc805bdadc.png",
     "https://assets.algoexpert.io/spas/main/prod/g523bdeb478-prod/dist/images/35e044b3354aaa0caed5.png",
   ];
+  const [selectedWorkModes, setSelectedWorkModes] = useState([]);
+  const [selectedCompanies, setSelectedCompanies] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [companyOptions, setcompanyOptions] = useState("");
+  const [skillOptions, setskillOptions] = useState("");
+  const [locationOptions, setlocationOptions] = useState("");
 
+  const handleSearch = () => {
+    const queryParams = new URLSearchParams();
+
+    if (selectedWorkModes.length > 0) {
+      queryParams.append("workModeOptions", selectedWorkModes.join());
+    }
+
+    if (selectedCompanies.length > 0) {
+      queryParams.append("companyOptions", selectedCompanies.join());
+    }
+
+    if (selectedLocations.length > 0) {
+      queryParams.append("locationOptions", selectedLocations.join());
+    }
+
+    if (selectedSkills.length > 0) {
+      queryParams.append("skillOptions", skillOptions.join());
+    }
+
+    if (companyOptions) {
+      queryParams.append("companyOptions", companyOptions);
+    }
+
+    if (skillOptions) {
+      queryParams.append("skillOptions", skillOptions);
+    }
+
+    if (locationOptions) {
+      queryParams.append("locationOptions", locationOptions);
+    }
+
+    const url = `https://localhost:7138/api/Jobs?${queryParams.toString()}`;
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error occurred during the API call.");
+        }
+      })
+      .then((data) => {
+        console.log("Filtered Data:", data);
+        // Update state or perform further actions
+      })
+      .catch((error) => {
+        console.error("Error occurred during the API call:", error);
+      });
+  };
+
+  const handleCompaniesChange = (event) => {
+    setcompanyOptions(event.target.value);
+  };
+
+  const handleSkillsChange = (event) => {
+    setskillOptions(event.target.value);
+  };
+
+  const handleLocationChange = (event) => {
+    setlocationOptions(event.target.value);
+  };
   return (
     <>
       <Paper elevation={0}>
@@ -142,7 +260,7 @@ const LandingSearch = () => {
         </Box>
 
         <Box sx={{ mx: 2 }}>
-          <Paper
+          {/* <Paper
             elevation={3}
             component="form"
             sx={{
@@ -167,7 +285,7 @@ const LandingSearch = () => {
                   size="small"
                   id="outlined-search"
                   variant="outlined"
-                  label="Enter Skills/Designations/Companies"
+                  label="Companies"
                   type="search"
                 />
               </Grid>
@@ -177,26 +295,20 @@ const LandingSearch = () => {
                   sx={{ height: 28, m: 0.5, ml: 2 }}
                 />
                 <FormControl fullWidth size="small">
-                  <InputLabel id="demo-select-small-label">
-                    Experience
-                  </InputLabel>
+                  <InputLabel id="demo-select-small-label">Skills</InputLabel>
                   <Select
                     sx={{ ml: 1 }}
                     labelId="demo-select-small-label"
                     id="demo-select-small"
-                    value={Years}
-                    label="Experience"
+                    value={Skills}
+                    label="Skills"
+                    type="search"
                     onChange={handleChange}
                   >
-                    <MenuItem value="Fresher">
-                      <em>Fresher</em>
-                    </MenuItem>
-                    <MenuItem value={1}>One</MenuItem>
-                    <MenuItem value={2}>Two</MenuItem>
-                    <MenuItem value={3}>Three</MenuItem>
-                    <MenuItem value={4}>Four</MenuItem>
-                    <MenuItem value={5}>Five</MenuItem>
-                    <MenuItem value={6}>Six</MenuItem>
+                    <MenuItem value={1}>Reactjs</MenuItem>
+                    <MenuItem value={2}>.NET</MenuItem>
+                    <MenuItem value={3}>Nodejs</MenuItem>
+                    <MenuItem value={4}>UXUI</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -225,7 +337,88 @@ const LandingSearch = () => {
                       background:
                         "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
                     }}
-                    onClick={()=>navigate("/jobsearch")}
+                    onClick={handleSearch}
+                  >
+                    Search
+                  </Button>
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Paper> */}
+          <Paper
+            elevation={3}
+            component="form"
+            sx={{ p: "2px 4px", mt: 7, width: "fit-content", margin: "auto" }}
+          >
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Grid item xs={12} sm={6} md={4} lg={4} display="flex">
+                <IconButton sx={{ p: "10px" }} aria-label="menu">
+                  <SearchIcon />
+                </IconButton>
+                <TextField
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  label="Companies"
+                  type="search"
+                  value={companyOptions}
+                  onChange={handleCompaniesChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3} lg={3} display="flex">
+                <Divider
+                  orientation="vertical"
+                  sx={{ height: 28, m: 0.5, ml: 2 }}
+                />
+                <FormControl fullWidth size="small">
+                  <InputLabel id="demo-select-small-label">Skills</InputLabel>
+                  <Select
+                    sx={{ ml: 1 }}
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    value={skillOptions}
+                    label="Skills"
+                    onChange={(event) => setskillOptions(event.target.value)}
+                  >
+                    <MenuItem value="Reactjs">Reactjs</MenuItem>
+                    <MenuItem value=".NET">.NET</MenuItem>
+                    <MenuItem value="Nodejs">Nodejs</MenuItem>
+                    <MenuItem value="UXUI">UXUI</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3} lg={3} display="flex">
+                <Divider orientation="vertical" sx={{ height: 28, m: 0.5 }} />
+                <TextField
+                  sx={{ ml: 2 }}
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  label="Enter Location"
+                  type="search"
+                  value={locationOptions}
+                  onChange={handleLocationChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} lg={2} display="flex">
+                <IconButton
+                  color="primary"
+                  sx={{ p: "10px" }}
+                  aria-label="directions"
+                >
+                  <Button
+                    variant="contained"
+                    style={{
+                      borderRadius: "25px",
+                      background:
+                        "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                    }}
+                    onClick={handleSearch}
                   >
                     Search
                   </Button>
@@ -251,13 +444,12 @@ const LandingSearch = () => {
             endIcon={<ChevronRightIcon />}
             size="large"
             sx={{ m: 1, borderColor: "#6936F5", color: "#6936F5" }}
-            onClick={()=>navigate("/jobsearch")}
+            onClick={() => navigate("/jobsearch")}
           >
             {job}
           </Button>
         ))}
       </Box>
-
 
       {/* <AppContainer> */}
       <Wrapper>
@@ -316,8 +508,6 @@ const LandingSearch = () => {
                   cursor: "pointer",
                 }}
               >
-                
-
                 <CardMedia
                   component="div"
                   sx={{
@@ -337,11 +527,11 @@ const LandingSearch = () => {
                       backgroundPosition: "center",
                       display: "inline-block",
                       border: "1px solid white",
-                     
+
                       borderRadius: "10px",
                     }}
                   />
-                   <div
+                  <div
                     style={{
                       height: "60px",
                       width: "60px",
@@ -356,7 +546,7 @@ const LandingSearch = () => {
                       borderRadius: "10px",
                     }}
                   />
-                   <div
+                  <div
                     style={{
                       height: "60px",
                       width: "60px",
@@ -383,7 +573,10 @@ const LandingSearch = () => {
                     color: "#6936F5",
                   }}
                 >
-                  <Typography style={{ display: "flex", alignItems: "center" }} onClick={()=>navigate("/jobsearch")}>
+                  <Typography
+                    style={{ display: "flex", alignItems: "center" }}
+                    onClick={() => navigate("/jobsearch")}
+                  >
                     {company.category} <ChevronRightIcon />
                   </Typography>
                 </CardContent>
