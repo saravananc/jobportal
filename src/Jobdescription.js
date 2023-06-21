@@ -28,93 +28,11 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-// const cardData = [
-//   {
-//     title: "Marketing Operations Manager",
-//     companyName: "Google",
-//     experience: "3-5 Years",
-//     salary: "Not disclosed",
-//     locations: "Chennai, Bangalore, erode,mumbai,velur",
-//     workmode: "Hybrid",
-//     description:
-//       "4+ years experience in marketing operations (consumer or higher educa...)",
-//     skills: "Email, CRM, Salesforce, Science",
-//     timestamp: "1 Day Ago",
-//   },
-
-//   // Add more card data objects as needed
-// ];
-
-const cardDatajobs = [
-  {
-    title: "Marketing Operations Manager",
-    companyName: "Google",
-    experience: "3-5 Years",
-    salary: "Not disclosed",
-    locations: "Chennai, Bangalore, erode,mumbai,velur",
-    workmode: "Hybrid",
-    description:
-      "4+ years experience in marketing operations (consumer or higher educa...)",
-    skills: "Email, CRM, Salesforce, Science",
-    timestamp: "1 Day Ago",
-  },
-  {
-    title: "Marketing Operations Manager",
-    companyName: "Google",
-    experience: "3-5 Years",
-    salary: "Not disclosed",
-    locations: "Chennai, Bangalore, erode,mumbai,velur",
-    workmode: "Hybrid",
-    description:
-      "4+ years experience in marketing operations (consumer or higher educa...)",
-    skills: "Email, CRM, Salesforce, Science",
-    timestamp: "1 Day Ago",
-  },
-  {
-    title: "Marketing Operations Manager",
-    companyName: "Google",
-    experience: "3-5 Years",
-    salary: "Not disclosed",
-    locations: "Chennai, Bangalore, erode,mumbai,velur",
-    workmode: "Hybrid",
-    description:
-      "4+ years experience in marketing operations (consumer or higher educa...)",
-    skills: "Email, CRM, Salesforce, Science",
-    timestamp: "1 Day Ago",
-  },
-  {
-    title: "Marketing Operations Manager",
-    companyName: "Google",
-    experience: "3-5 Years",
-    salary: "Not disclosed",
-    locations: "Chennai, Bangalore, erode,mumbai,velur",
-    workmode: "Hybrid",
-    description:
-      "4+ years experience in marketing operations (consumer or higher educa...)",
-    skills: "Email, CRM, Salesforce, Science",
-    timestamp: "1 Day Ago",
-  },
-  {
-    title: "Marketing Operations Manager",
-    companyName: "Google",
-    experience: "3-5 Years",
-    salary: "Not disclosed",
-    locations: "Chennai, Bangalore, erode,mumbai,velur",
-    workmode: "Hybrid",
-    description:
-      "4+ years experience in marketing operations (consumer or higher educa...)",
-    skills: "Email, CRM, Salesforce, Science",
-    timestamp: "1 Day Ago",
-  },
-
-  // Add more card data objects as needed
-];
-
 const Jobdescription = () => {
   const urlParams = useParams();
   const id = urlParams.id;
   const [cardData, setCardData] = useState([]);
-
+  const [cardDataJobs, setCardDataJobs] = useState([]);
   useEffect(() => {
     const fetchData = () => {
       fetch(`https://localhost:7138/api/Jobs/${id}`, {
@@ -140,10 +58,33 @@ const Jobdescription = () => {
             salary: data.salary || "",
             workmode: data.workMode[0]?.name || "",
             locations: data.openings[0]?.location || "",
-            description: data.description||"",
+            description: data.description || "",
             timestamp: data.timestamp || "",
           };
           setCardData([jobData]);
+          return data.openings[0]?.location || ""; // Pass location to the next then block
+        })
+        .then((location) => {
+          return fetch(
+            `https://localhost:7138/api/Jobs?locationOptions=${location}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Error occurred during the API call.");
+          }
+        })
+        .then((data) => {
+          console.log("Location-based data fetched successfully:", data);
+          setCardDataJobs(data);
         })
         .catch((error) => {
           console.error("Error occurred during the API call:", error);
@@ -152,6 +93,7 @@ const Jobdescription = () => {
 
     fetchData();
   }, [id]);
+
   return (
     <>
       <Box
@@ -163,96 +105,6 @@ const Jobdescription = () => {
         <Grid container spacing={0}>
           <Grid item xs={12} md={8}>
             <Item>
-              {/* <div>
-                {cardData.map((data, index) => (
-                  <Box key={index} sx={{ minWidth: 275 }}>
-                    <Card
-                      sx={{
-                        borderRadius: "15px",
-                        mt: 1,
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-                      }}
-                      variant="outlined"
-                    >
-                      <CardContent>
-                        <CardActions>
-                          <div>
-                            <Typography sx={{ fontSize: 20 }} gutterBottom>
-                              {data.title}
-                            </Typography>
-                            <Typography
-                              sx={{ mb: 1.5, color: "text.secondary" }}
-                            >
-                              {data.companyName}
-                            </Typography>
-                          </div>
-                          <div style={{ marginLeft: "auto" }}>
-                            <Avatar
-                              sx={{
-                                backgroundColor: "orange",
-                              }}
-                              aria-label="companyname"
-                            >
-                              {data.companyName.substring(0, 2).toUpperCase()}
-                            </Avatar>
-                          </div>
-                        </CardActions>
-
-                        <Stack direction="row" spacing={1}>
-                          <Chip
-                            sx={{ backgroundColor: "white" }}
-                            icon={<WorkIcon style={{ color: "#478CF7" }} />}
-                            label={data.experience}
-                          />
-                          <Chip
-                            sx={{ backgroundColor: "white" }}
-                            icon={
-                              <CurrencyRupeeIcon style={{ color: "#FFB300" }} />
-                            }
-                            label={data.salary}
-                          />
-                        </Stack>
-                        <Stack direction="row" spacing={1}>
-                          <Chip
-                            sx={{ backgroundColor: "white" }}
-                            icon={
-                              <DescriptionIcon style={{ color: "lightblue" }} />
-                            }
-                            label={data.workmode}
-                          />
-                        </Stack>
-                        <Stack direction="row" spacing={1}>
-                          <Chip
-                            sx={{ backgroundColor: "white", fontSize: "15px" }}
-                            icon={
-                              <LocationOnIcon style={{ color: "blueviolet" }} />
-                            }
-                            label={data.locations}
-                          />
-                        </Stack>
-                      </CardContent>
-                      <CardActions>
-                        <Typography sx={{ fontSize: "12px" }}>
-                          {data.timestamp}
-                        </Typography>
-                       
-                        <Button 
-                          variant="contained"
-                          sx={{
-                            marginLeft: "auto",
-                            borderRadius: "15px",
-                            color: "white",
-                            backgroundColor: "#6936F5",
-                          }}
-                        >
-                          Apply
-                        </Button>
-                      </CardActions>
-                     
-                    </Card>
-                  </Box>
-                ))}
-              </div> */}
               <div>
                 {cardData && cardData.length > 0 ? (
                   cardData.map((data, index) => (
@@ -416,51 +268,59 @@ const Jobdescription = () => {
           >
             <Item>
               <Typography variant="h6" sx={{ color: "black" }} gutterBottom>
-                Jobs you might be interested in
+              Other Jobs in Same Location
               </Typography>
+
               <div>
-                {cardDatajobs.map((data, index) => (
-                  <Box key={index} sx={{ minWidth: 275 }}>
-                    <Card
-                      sx={{
-                        borderRadius: "15px",
-                        mt: 1,
-                      }}
-                      variant="outlined"
-                    >
-                      <CardActionArea>
-                        <CardContent>
-                          <CardActions>
-                            <div>
-                              <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                {data.title}
-                              </Typography>
-                              <Typography sx={{ color: "text.secondary" }}>
-                                {data.companyName}
-                              </Typography>
-                            </div>
-                          </CardActions>
+                {cardDataJobs.length > 0 ? (
+                  cardDataJobs.map((data, index) => (
+                    <Box key={index} sx={{ minWidth: 275 }}>
+                      <Card
+                        sx={{
+                          borderRadius: "15px",
+                          mt: 1,
+                        }}
+                        variant="outlined"
+                      >
+                        <CardActionArea>
+                          <CardContent>
+                            <CardActions>
+                              <div>
+                                <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                  {data.title}
+                                </Typography>
+                                <Typography sx={{ color: "text.secondary" }}>
+                                  {data.companies[0]?.name || ""}
+                                </Typography>
+                              </div>
+                            </CardActions>
 
-                          <Stack direction="row" spacing={1}>
-                            <Chip
-                              sx={{ backgroundColor: "white" }}
-                              icon={
-                                <LocationOnIcon
-                                  style={{ color: "blueviolet" }}
-                                />
-                              }
-                              label={data.locations}
-                            />
-                          </Stack>
+                            <Stack direction="row" spacing={1}>
+                              <Chip
+                                sx={{
+                                  backgroundColor: "white",
+                                  fontSize: "15px",
+                                }}
+                                icon={
+                                  <LocationOnIcon
+                                    style={{ color: "blueviolet" }}
+                                  />
+                                }
+                                label={data.openings[0]?.location || ""}
+                              />
+                            </Stack>
 
-                          <Typography sx={{ fontSize: "12px" }}>
-                            {data.timestamp}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  </Box>
-                ))}
+                            <Typography sx={{ fontSize: "12px" }}>
+                              {data.timestamp}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                      </Card>
+                    </Box>
+                  ))
+                ) : (
+                  <Typography>No job data available</Typography>
+                )}
               </div>
             </Item>
           </Grid>

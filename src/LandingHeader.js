@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,11 +10,12 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import { Stack, Button } from "@mui/material";
 import { Imagesfile } from "./Images/Images";
+import { Link as RouterLink } from "react-router-dom";
 
 const pages = ["Jobs", "Companies", "Services"];
 
-const LandingHeader = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
+const LandingHeader = ({ isLoggedIn }) => {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -70,95 +71,102 @@ const LandingHeader = () => {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-              <MenuItem>
+              {!isLoggedIn && (
+                <MenuItem component={RouterLink} to="/login">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      borderRadius: "10px",
+                      color: "black",
+                      borderColor: "#6936F5",
+                      fontWeight: "bold",
+                      fontSize: "12px",
+                      width: "100%",
+                      height: "30px",
+                    }}
+                  >
+                    Sign In
+                  </Button>
+                </MenuItem>
+              )}
+              {!isLoggedIn && (
+                <MenuItem component={RouterLink} to="/signup">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      borderRadius: "10px",
+                      fontWeight: "bold",
+                      color: "white",
+                      border: "none",
+                      background:
+                        "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                      fontSize: "12px",
+                      width: "100%",
+                      height: "30px",
+                    }}
+                  >
+                    Sign Up
+                  </Button>
+                </MenuItem>
+              )}
+            </Menu>
+          </Box>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            {pages.map((page) => (
+              <Typography
+                key={page}
+                variant="body2"
+                color="text.primary"
+                sx={{ ml: 4, fontWeight: "bold" }}
+              >
+                {page}
+              </Typography>
+            ))}
+            {!isLoggedIn && (
+              <>
                 <Button
+                  component={RouterLink}
+                  to="/login"
                   variant="outlined"
                   sx={{
+                    ml: 4,
                     borderRadius: "10px",
                     color: "black",
                     borderColor: "#6936F5",
                     fontWeight: "bold",
                     fontSize: "12px",
-                    width: "100%",
                     height: "30px",
                   }}
-                  href="/login"
                 >
                   Sign In
                 </Button>
-              </MenuItem>
-              <MenuItem>
                 <Button
+                  component={RouterLink}
+                  to="/signup"
                   variant="outlined"
                   sx={{
+                    ml: 2,
                     borderRadius: "10px",
                     fontWeight: "bold",
                     color: "white",
                     border: "none",
-                    background:
-                      "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+                    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
                     fontSize: "12px",
-                    width: "100%",
                     height: "30px",
                   }}
-                  href="/signup"
                 >
                   Sign Up
                 </Button>
-              </MenuItem>
-            </Menu>
-          </Box>
-
-          <Box
-            sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}
-          >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "black",
-                  display: "block",
-                  fontWeight: "bold",
-                }}
-              >
-                {page}
-              </Button>
-            ))}
-            <Button
-              variant="outlined"
-              sx={{
-                borderRadius: "10px",
-                color: "black",
-                borderColor: "#6936F5",
-                fontWeight: "bold",
-                fontSize: "12px",
-                width: "80px",
-                height: "30px",
-                marginLeft: "10px",
-              }}
-              href="/login"
-            >
-              Sign In
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                borderRadius: "10px",
-                fontWeight: "bold",
-                color: "white",
-                border: "none",
-                background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-                fontSize: "12px",
-                width: "80px",
-                height: "30px",
-                marginLeft: "10px",
-              }}
-              href="/signup"
-            >
-              Sign Up
-            </Button>
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>

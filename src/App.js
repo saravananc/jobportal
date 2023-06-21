@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LandingHeader from "./LandingHeader";
 import LandingSearch from "./LandingSearch";
 import Signin from "./Signin";
@@ -9,13 +9,22 @@ import Jobdescription from "./Jobdescription";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
     <>
       <BrowserRouter>
-      <LandingHeader />
+      <LandingHeader isLoggedIn={isLoggedIn} />
         <Routes>
           <Route path="/" element={<LandingSearch/>}/>
-          <Route path="/login" element={<Signin/>}/>
+          <Route
+            path="/login"
+            element={<Signin onLogin={handleLogin} isLoggedIn={isLoggedIn} />}
+          />
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/jobsearch" element={<JobSearch/>}/>
           <Route path="/jobsearch/jobdescription/:id" element={<Jobdescription/>}/>
