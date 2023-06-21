@@ -19,6 +19,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useParams } from "react-router-dom";
+import Model from "./Model";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -93,6 +94,15 @@ const Jobdescription = () => {
 
     fetchData();
   }, [id]);
+
+  const [selectedJob, setSelectedJob] = useState("");
+  const [selectedCompany, setSelectedCompany] = useState("");
+
+  const handleApply = (job, company) => {
+    setSelectedJob(job);
+    setSelectedCompany(company);
+    // Show the modal popup here
+  };
 
   return (
     <>
@@ -187,6 +197,17 @@ const Jobdescription = () => {
                           <Typography sx={{ fontSize: "12px" }}>
                             {data.timestamp}
                           </Typography>
+                          {/* <Button
+                            variant="contained"
+                            sx={{
+                              marginLeft: "auto",
+                              borderRadius: "15px",
+                              color: "white",
+                              backgroundColor: "#6936F5",
+                            }}
+                          >
+                            Apply
+                          </Button> */}
                           <Button
                             variant="contained"
                             sx={{
@@ -195,6 +216,9 @@ const Jobdescription = () => {
                               color: "white",
                               backgroundColor: "#6936F5",
                             }}
+                            onClick={() =>
+                              handleApply(data.title, data.companyName)
+                            }
                           >
                             Apply
                           </Button>
@@ -205,6 +229,17 @@ const Jobdescription = () => {
                 ) : (
                   <Typography>No job data available</Typography>
                 )}
+
+                {selectedJob && selectedCompany && (
+                  <Model
+                    job={selectedJob}
+                    company={selectedCompany}
+                    handleClose={() => {
+                      setSelectedJob("");
+                      setSelectedCompany("");
+                    }}
+                  />
+                )}
               </div>
               <div>
                 {cardData.map((data, index) => (
@@ -212,7 +247,7 @@ const Jobdescription = () => {
                     key={index}
                     sx={{ p: 2, mt: 1, border: "1px dashed grey" }}
                   >
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h5" color="royalblue" gutterBottom>
                       Job description
                     </Typography>
                     <Typography variant="h6" gutterBottom>
@@ -221,39 +256,72 @@ const Jobdescription = () => {
                     <Typography variant="subtitle1" gutterBottom>
                       TO APPLY, PLEASE CLICK ON THE APPLY LINK
                     </Typography>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography
+                      color="royalblue"
+                      variant="subtitle1"
+                      gutterBottom
+                    >
                       Roles and Responsibilities
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      Transforming complex PSD layouts into pixel-perfect
-                      presentation-layer HTML5/CSS3 templates <br /> Creating
-                      responsive website designs <br />
-                      Building websites with WordPress/BigCommerce/Shopify{" "}
-                      <br />
-                      Working with Photoshop, Illustrator, and Fireworks to
-                      create images optimized for the web <br />
-                      Working with version control systems such as GIT / SVN
-                      <br />
-                      Working under tight deadlines <br />
-                      Handling multiple projects at the same time <br />
-                      Producing high-quality work with a strong focus on detail
+                    <Typography sx={{ ml: 2 }} variant="body2" gutterBottom>
+                      <ul>
+                        <li>
+                          Transforming complex PSD layouts into pixel-perfect
+                          presentation-layer HTML5/CSS3 templates.
+                        </li>
+                        <li>Creating responsive website designs.</li>
+                        <li>
+                          Building websites with WordPress/BigCommerce/Shopify.
+                        </li>
+                        <li>
+                          Working with Photoshop, Illustrator, and Fireworks to
+                          create images optimized for the web.
+                        </li>
+                        <li>
+                          Working with version control systems such as GIT /
+                          SVN.
+                        </li>
+                        <li>Working under tight deadlines.</li>
+                        <li>Handling multiple projects at the same time.</li>
+                        <li>
+                          Producing high-quality work with a strong focus on
+                          detail.
+                        </li>
+                      </ul>
                     </Typography>
-                    <Typography variant="subtitle1" gutterBottom>
+
+                    <Typography
+                      color="royalblue"
+                      variant="subtitle1"
+                      gutterBottom
+                    >
                       Desired Candidate Profile
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      Transforming complex PSD layouts into pixel-perfect
-                      presentation-layer HTML5/CSS3 templates <br /> Creating
-                      responsive website designs <br />
-                      Building websites with WordPress/BigCommerce/Shopify{" "}
-                      <br />
-                      Working with Photoshop, Illustrator, and Fireworks to
-                      create images optimized for the web <br />
-                      Working with version control systems such as GIT / SVN
-                      <br />
-                      Working under tight deadlines <br />
-                      Handling multiple projects at the same time <br />
-                      Producing high-quality work with a strong focus on detail
+                    <Typography sx={{ ml: 2 }} variant="body2" gutterBottom>
+                      <ul>
+                        <li>
+                          Transforming complex PSD layouts into pixel-perfect
+                          presentation-layer HTML5/CSS3 templates.
+                        </li>
+                        <li>Creating responsive website designs.</li>
+                        <li>
+                          Building websites with WordPress/BigCommerce/Shopify.
+                        </li>
+                        <li>
+                          Working with Photoshop, Illustrator, and Fireworks to
+                          create images optimized for the web.
+                        </li>
+                        <li>
+                          Working with version control systems such as GIT /
+                          SVN.
+                        </li>
+                        <li>Working under tight deadlines.</li>
+                        <li>Handling multiple projects at the same time.</li>
+                        <li>
+                          Producing high-quality work with a strong focus on
+                          detail.
+                        </li>
+                      </ul>
                     </Typography>
                   </Box>
                 ))}
@@ -268,7 +336,7 @@ const Jobdescription = () => {
           >
             <Item>
               <Typography variant="h6" sx={{ color: "black" }} gutterBottom>
-              Other Jobs in Same Location
+                Other Jobs in Same Location
               </Typography>
 
               <div>

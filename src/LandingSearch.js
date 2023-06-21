@@ -258,53 +258,6 @@ const LandingSearch = () => {
         ))}
       </Box>
 
-      {/* <Box sx={{ mt: 5 }}>
-        <Slider {...settings}>
-          {companycategory.map((company, index) => (
-            <Box key={index} sx={{ pl: 4 }}>
-              <Button
-                variant="text"
-                size="large"
-                
-                sx={{
-                  height: "100px",
-                  width: "220px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: "#6936F5",
-                  overflow: "hidden",
-                  border: "1px solid",
-                  borderColor: "lightgray",
-                  borderRadius: "10px",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    width: "100%",
-                    backgroundImage: `url(${company.image})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                  }}
-                ></div>
-                <div
-                  style={{
-                    height: "50%",
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  {company.category}
-                </div>
-              </Button>
-            </Box>
-          ))}
-        </Slider>
-      </Box> */}
 
       {/* <AppContainer> */}
       <Wrapper>
