@@ -10,11 +10,13 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import { Stack, Button } from "@mui/material";
 import { Imagesfile } from "./Images/Images";
-import { Link as RouterLink } from "react-router-dom";
+import {  Link as RouterLink, useNavigate } from "react-router-dom";
 
 const pages = ["Jobs", "Companies", "Services"];
 
 const LandingHeader = ({ isLoggedIn }) => {
+
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -33,7 +35,9 @@ const LandingHeader = ({ isLoggedIn }) => {
             <img
               src={Imagesfile.Signinlogo}
               alt="Logo"
-              style={{ height: "30px", marginRight: "10px" }}
+              style={{ height: "30px", marginRight: "10px",cursor:"pointer" }}
+              onClick={() => navigate("/")}
+              
             />
           </Box>
 

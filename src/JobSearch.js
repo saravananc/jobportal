@@ -13,6 +13,7 @@ import {
   Stack,
   Chip,
 } from "@mui/material";
+import Skeleton from '@mui/material/Skeleton';
 import { CardActionArea } from "@mui/material";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -45,6 +46,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DescriptionIcon from "@mui/icons-material/Description";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+
+
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -347,6 +351,7 @@ const JobSearch = () => {
             </Item>
           </Grid>
           <Grid item xs={12} md={6}>
+          
             <Item>
               <Typography color="blueviolet" variant="subtitle2" gutterBottom>
                 Search : {cardData.length} jobs
@@ -354,6 +359,7 @@ const JobSearch = () => {
 
             
               <div>
+              <Skeleton animation="wave" />
                 {cardData.map((data, index) => (
                   <Box key={index} sx={{ minWidth: 275 }}>
                     <Card

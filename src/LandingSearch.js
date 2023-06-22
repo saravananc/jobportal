@@ -129,33 +129,33 @@ const LandingSearch = () => {
   };
 
   const PrevArrow = (props) => (
-    <button
+    <Button
       {...props}
       style={{
         position: "absolute",
-        left: "23px",
+        left: "8px",
         zIndex: 1,
         display: "flex",
         alignItems: "center",
       }}
     >
       {/* <ChevronLeftIcon /> */}
-    </button>
+    </Button>
   );
 
   const NextArrow = (props) => (
-    <button
+    <Button
       {...props}
       style={{
         position: "absolute",
-        right: "30px",
+        right: "15px",
         zIndex: 1,
         display: "flex",
         alignItems: "center",
       }}
     >
       {/* <ChevronRightIcon /> */}
-    </button>
+    </Button>
   );
 
   const row1 = [
@@ -242,9 +242,9 @@ const LandingSearch = () => {
     setcompanyOptions(event.target.value);
   };
 
-  const handleSkillsChange = (event) => {
-    setskillOptions(event.target.value);
-  };
+  // const handleSkillsChange = (event) => {
+  //   setskillOptions(event.target.value);
+  // };
 
   const handleLocationChange = (event) => {
     setlocationOptions(event.target.value);
@@ -260,91 +260,7 @@ const LandingSearch = () => {
         </Box>
 
         <Box sx={{ mx: 2 }}>
-          {/* <Paper
-            elevation={3}
-            component="form"
-            sx={{
-              p: "2px 4px",
-              mt: 7,
-              width: "fit-content",
-              margin: "auto",
-            }}
-          >
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Grid item xs={12} sm={6} md={4} lg={4} display="flex">
-                <IconButton sx={{ p: "10px" }} aria-label="menu">
-                  <SearchIcon />
-                </IconButton>
-                <TextField
-                  fullWidth
-                  size="small"
-                  id="outlined-search"
-                  variant="outlined"
-                  label="Companies"
-                  type="search"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={3} lg={3} display="flex">
-                <Divider
-                  orientation="vertical"
-                  sx={{ height: 28, m: 0.5, ml: 2 }}
-                />
-                <FormControl fullWidth size="small">
-                  <InputLabel id="demo-select-small-label">Skills</InputLabel>
-                  <Select
-                    sx={{ ml: 1 }}
-                    labelId="demo-select-small-label"
-                    id="demo-select-small"
-                    value={Skills}
-                    label="Skills"
-                    type="search"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={1}>Reactjs</MenuItem>
-                    <MenuItem value={2}>.NET</MenuItem>
-                    <MenuItem value={3}>Nodejs</MenuItem>
-                    <MenuItem value={4}>UXUI</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6} md={3} lg={3} display="flex">
-                <Divider orientation="vertical" sx={{ height: 28, m: 0.5 }} />
-                <TextField
-                  sx={{ ml: 2 }}
-                  fullWidth
-                  size="small"
-                  id="outlined-search"
-                  variant="outlined"
-                  label="Enter Location"
-                  type="search"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={2} lg={2} display="flex">
-                <IconButton
-                  color="primary"
-                  sx={{ p: "10px" }}
-                  aria-label="directions"
-                >
-                  <Button
-                    variant="contained"
-                    style={{
-                      borderRadius: "25px",
-                      background:
-                        "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-                    }}
-                    onClick={handleSearch}
-                  >
-                    Search
-                  </Button>
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Paper> */}
+       
           <Paper
             elevation={3}
             component="form"

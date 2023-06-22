@@ -8,6 +8,7 @@ import jsonData from './data.json';
 import StepperSignup from './StepperSignup';
 import ResumeSignup from './ResumeSignup';
 import { Box, Typography } from '@mui/material';
+import { Button } from '@material-ui/core';
 
 const Signup = () => {
   const componentRef = useRef();
@@ -56,9 +57,9 @@ const Signup = () => {
             <ResumeSignup  data={data} color={color} />
           </div>
 
-          <button className='printBtn' onClick={handlePrint}>
+          <Button className='printBtn' onClick={handlePrint}>
             Download / Print
-          </button>
+          </Button>
           </Box>
         </Fragment>
       )}
