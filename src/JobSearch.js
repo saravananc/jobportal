@@ -13,19 +13,19 @@ import {
   Stack,
   Chip,
 } from "@mui/material";
-import Skeleton from '@mui/material/Skeleton';
+
 import { CardActionArea } from "@mui/material";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import { Imagesfile } from "./Images/Images";
+
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
+
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import {
   FaAmazon,
   FaEbay,
@@ -46,8 +46,8 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DescriptionIcon from "@mui/icons-material/Description";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-
-
+import Skeleton from "@mui/material/Skeleton";
+import Slider from "@mui/material/Slider";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -95,6 +95,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const JobSearch = () => {
+  
   const navigate = useNavigate();
   const cardStyle = {
     maxWidth: 345,
@@ -119,6 +120,47 @@ const JobSearch = () => {
     fontSize: "40px",
   };
 
+
+  const PrettoSlider = styled(Slider)({
+  color: '#6936F5',
+  height: 8,
+  '& .MuiSlider-track': {
+    border: 'none',
+  },
+  '& .MuiSlider-thumb': {
+    height: 24,
+    width: 24,
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
+    '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+      boxShadow: 'inherit',
+    },
+    '&:before': {
+      display: 'none',
+    },
+  },
+  '& .MuiSlider-valueLabel': {
+    lineHeight: 1.2,
+    fontSize: 12,
+    background: 'unset',
+    padding: 0,
+    width: 50,
+    height: 50,
+    borderRadius: '50% 50% 50% 0',
+    backgroundColor: '#6936F5',
+    transformOrigin: 'bottom left',
+    transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
+    '&:before': { display: 'none' },
+    '&.MuiSlider-valueLabelOpen': {
+      transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
+    },
+    '& > *': {
+      transform: 'rotate(45deg)',
+    },
+  },
+});
+
+
   const [expanded, setExpanded] = React.useState("panel1");
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -126,6 +168,7 @@ const JobSearch = () => {
   };
 
   const [cardData, setCardData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     fetchData();
@@ -148,20 +191,27 @@ const JobSearch = () => {
       .then((data) => {
         console.log("Data fetched successfully:", data);
         setCardData(data);
+        setIsLoading(false); // Set isLoading to false when data is fetched
       })
       .catch((error) => {
         console.error("Error occurred during the API call:", error);
       });
   };
-
   console.log(cardData, "carddata");
+
+  const [selectedSalary, setselectedSalary] = React.useState([0, 100000]);
+
+  const handleSalaryChange = (event, newselectedSalary) => {
+    setselectedSalary(newselectedSalary);
+  };
 
   const handleFilter = () => {
     const selectedWorkModes = [];
     const selectedCompanies = [];
     const selectedLocations = [];
     const selectedSkills = [];
-
+    const minSalary = selectedSalary[0];
+    const maxSalary = selectedSalary[1];
     checkboxOptions.forEach((panel) => {
       panel.options.forEach((option) => {
         if (option.checked) {
@@ -202,6 +252,17 @@ const JobSearch = () => {
     if (selectedSkills.length > 0) {
       queryParams.append("skillOptions", selectedSkills.join());
     }
+
+    if (minSalary > 0 || maxSalary > 0) {
+      queryParams.append("minSalary", minSalary.toString());
+      queryParams.append("maxSalary", maxSalary.toString());
+    }
+    console.log(
+      minSalary.toString(),
+      "minSalary",
+      maxSalary.toString(),
+      "maxSalary"
+    );
 
     const url = `https://localhost:7138/api/Jobs?${queryParams.toString()}`;
 
@@ -344,6 +405,40 @@ const JobSearch = () => {
                     </AccordionDetails>
                   </Accordion>
                 ))}
+                <Accordion
+                  key="panel5"
+                  expanded={expanded === "panel5"}
+                  onChange={handleChange("panel5")}
+                >
+                  <AccordionSummary
+                    aria-controls="panel5-content"
+                    id="panel5-header"
+                  >
+                    <Typography>Salary</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {/* <Slider
+                      value={selectedSalary}
+                      onChange={handleSalaryChange}
+                      valueLabelDisplay="auto"
+                      aria-labelledby="salary-slider"
+                      min={0}
+                      max={100000}
+                    /> */}
+                    <PrettoSlider
+                      value={selectedSalary}
+                      onChange={handleSalaryChange}
+                      valueLabelDisplay="auto"
+                      aria-label="salary-slider"
+                      min={0}
+                      max={100000}
+                    />
+                    <div>
+                      <Typography>minSalary: {selectedSalary[0]}</Typography>
+                      <Typography>maxSalary: {selectedSalary[1]}</Typography>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
                 <Button variant="contained" onClick={handleFilter}>
                   Apply Filters
                 </Button>
@@ -351,114 +446,119 @@ const JobSearch = () => {
             </Item>
           </Grid>
           <Grid item xs={12} md={6}>
-          
             <Item>
               <Typography color="blueviolet" variant="subtitle2" gutterBottom>
                 Search : {cardData.length} jobs
               </Typography>
 
-            
               <div>
-              <Skeleton animation="wave" />
-                {cardData.map((data, index) => (
-                  <Box key={index} sx={{ minWidth: 275 }}>
-                    <Card
-                      sx={{
-                        borderRadius: "15px",
-                        mt: 1,
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-                        transition:
-                          "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
-                        "&:hover": {
-                          boxShadow: "0px 15px 20px rgba(0, 0, 0, 0.3)",
-                        },
-                      }}
-                      variant="outlined"
-                      onClick={() => navigate(`/jobsearch/jobdescription/${data?.id}`)}
-                    >
-                      <CardActionArea>
-                        <CardContent>
-                          <CardActions>
-                            <div>
-                              <Typography sx={{ fontSize: 20 }} gutterBottom>
-                                {data.title}
-                              </Typography>
-                              <Typography
-                                sx={{ mb: 1.5, color: "text.secondary" }}
-                              >
-                                {data.companies[0].name}
-                              </Typography>
-                            </div>
-                            <div style={{ marginLeft: "auto" }}>
-                              <Avatar
-                                sx={{
-                                  backgroundColor: "orange",
-                                }}
-                                aria-label="companyname"
-                              >
-                                {data.companies[0].name
-                                  .substring(0, 2)
-                                  .toUpperCase()}
-                              </Avatar>
-                            </div>
-                          </CardActions>
+                {isLoading ? (
+                  <Skeleton animation="wave" variant="rounded" height={300} />
+                ) : (
+                  cardData.map((data, index) => (
+                    <Box key={index} sx={{ minWidth: 275 }}>
+                      <Card
+                        sx={{
+                          borderRadius: "15px",
+                          mt: 1,
+                          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+                          transition:
+                            "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+                          "&:hover": {
+                            boxShadow: "0px 15px 20px rgba(0, 0, 0, 0.3)",
+                          },
+                        }}
+                        variant="outlined"
+                        onClick={() =>
+                          navigate(`/jobsearch/jobdescription/${data?.jobId}`)
+                        }
+                      >
+                        <CardActionArea>
+                          <CardContent>
+                            <CardActions>
+                              <div>
+                                <Typography sx={{ fontSize: 20 }} gutterBottom>
+                                  {data.title}
+                                </Typography>
+                                <Typography
+                                  sx={{ mb: 1.5, color: "text.secondary" }}
+                                >
+                                  {data.companies[0].name}
+                                </Typography>
+                              </div>
+                              <div style={{ marginLeft: "auto" }}>
+                                <Avatar
+                                  sx={{
+                                    backgroundColor: "orange",
+                                  }}
+                                  aria-label="companyname"
+                                >
+                                  {data.companies[0].name
+                                    .substring(0, 2)
+                                    .toUpperCase()}
+                                </Avatar>
+                              </div>
+                            </CardActions>
 
-                          <Stack direction="row" spacing={1}>
-                            <Chip
-                              sx={{ backgroundColor: "white" }}
-                              icon={<WorkIcon style={{ color: "#478CF7" }} />}
-                              label={data.openings[0].experience}
-                            />
-                            <Chip
-                              sx={{ backgroundColor: "white" }}
-                              icon={
-                                <CurrencyRupeeIcon
-                                  style={{ color: "#FFB300" }}
-                                />
-                              }
-                              label={data.salary}
-                            />
-                            <Chip
-                              sx={{ backgroundColor: "white" }}
-                              icon={
-                                <LocationOnIcon
-                                  style={{ color: "blueviolet" }}
-                                />
-                              }
-                              label={data.openings[0].location}
-                            />
-                            <Chip
-                              sx={{ backgroundColor: "white" }}
-                              icon={
-                                <NavigationIcon style={{ color: "pink" }} />
-                              }
-                              label={data.workMode[0].name}
-                            />
-                          </Stack>
-                          <Stack direction="row" spacing={1}>
-                            <Chip
-                              sx={{ backgroundColor: "white" }}
-                              icon={
-                                <DescriptionIcon
-                                  style={{ color: "lightblue" }}
-                                />
-                              }
-                              label={data.description}
-                            />
-                          </Stack>
-                          <Typography sx={{ mt: 1 }} color="text.secondary">
-                            {data.skills.map((skill) => skill.name).join(", ")}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <Typography sx={{ fontSize: "12px" }}>
-                            {data.timestamp}
-                          </Typography>
-                        </CardActions>
-                      </CardActionArea>
-                    </Card>
-                  </Box>
-                ))}
+                            <Stack direction="row" spacing={1}>
+                              <Chip
+                                sx={{ backgroundColor: "white" }}
+                                icon={<WorkIcon style={{ color: "#478CF7" }} />}
+                                label={data.openings[0].experience}
+                              />
+                              <Chip
+                                sx={{ backgroundColor: "white" }}
+                                icon={
+                                  <CurrencyRupeeIcon
+                                    style={{ color: "#FFB300" }}
+                                  />
+                                }
+                                label={data.salary}
+                              />
+                              <Chip
+                                sx={{ backgroundColor: "white" }}
+                                icon={
+                                  <LocationOnIcon
+                                    style={{ color: "blueviolet" }}
+                                  />
+                                }
+                                label={data.openings[0].location}
+                              />
+                              <Chip
+                                sx={{ backgroundColor: "white" }}
+                                icon={
+                                  <NavigationIcon style={{ color: "pink" }} />
+                                }
+                                label={data.workMode[0].name}
+                              />
+                            </Stack>
+                            <Stack direction="row" spacing={1}>
+                              <Chip
+                                sx={{ backgroundColor: "white" }}
+                                icon={
+                                  <DescriptionIcon
+                                    style={{ color: "lightblue" }}
+                                  />
+                                }
+                                label={data.description}
+                              />
+                            </Stack>
+                            <Typography sx={{ mt: 1 }} color="text.secondary">
+                              {data.skills
+                                .map((skill) => skill.name)
+                                .join(", ")}
+                            </Typography>
+                          </CardContent>
+                          <CardActions>
+                            <Typography sx={{ fontSize: "12px" }}>
+                              {data.timestamp}
+                            </Typography>
+                          </CardActions>
+                        </CardActionArea>
+                      </Card>
+                    </Box>
+                  ))
+                )}
               </div>
             </Item>
           </Grid>

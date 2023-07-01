@@ -660,7 +660,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
                 variant="contained"
                 size="small"
                 color="error"
-                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
                 onClick={() => removeRow(languages, index)}
               >
                 Remove
@@ -672,7 +672,8 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             variant="contained"
             size="small"
             color="primary"
-            sx={{ marginTop: "10px" }}
+            
+            style={{ marginTop: "10px" }}
             onClick={() => addRow(languages, { language: "", level: "" })}
           >
             Add
@@ -779,7 +780,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
                 variant="contained"
                 size="small"
                 color="error"
-                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
                 onClick={() => removeRow(data.education, index)}
               >
                 Remove
@@ -791,7 +792,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             variant="contained"
             size="small"
             color="primary"
-            sx={{ marginTop: "10px" }}
+            style={{ marginTop: "10px" }}
             onClick={() =>
               addRow(education, {
                 year: "",
@@ -877,7 +878,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
                 variant="contained"
                 size="small"
                 color="error"
-                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
                 onClick={() => removeRow(data.experience, index)}
               >
                 Remove
@@ -889,7 +890,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             variant="contained"
             size="small"
             color="primary"
-            sx={{ marginTop: "10px" }}
+            style={{ marginTop: "10px" }}
             onClick={() =>
               addRow(data.experience, {
                 year: "",
@@ -946,7 +947,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
                 variant="contained"
                 size="small"
                 color="error"
-                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
                 onClick={() => removeRow(data.workshops, index)}
               >
                 Remove
@@ -958,7 +959,8 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             variant="contained"
             size="small"
             color="primary"
-            sx={{ marginTop: "10px" }}
+            style={{marginTop:"10px"}}
+            // sx={{ marginTop: "10px" }}
             onClick={() =>
               addRow(data.workshops, { year: "", description: "" })
             }
@@ -1060,7 +1062,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
                 variant="contained"
                 size="small"
                 color="error"
-                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
                 onClick={() => removeRow(data.certifications, index)}
               >
                 Remove
@@ -1072,7 +1074,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
             variant="contained"
             size="small"
             color="primary"
-            sx={{ marginTop: "10px", marginBottom: "10px" }}
+            style={{ marginTop: "10px", marginBottom: "10px" }}
             onClick={() =>
               addRow(data.certifications, {
                 year: "",
@@ -1141,7 +1143,7 @@ const StepperSignup = ({ data, setData, preset, setColor, color }) => {
                 variant="contained"
                 size="small"
                 color="error"
-                sx={{ marginTop: "10px", marginBottom: "10px" }}
+                style={{ marginTop: "10px", marginBottom: "10px" }}
                 onClick={() => removeRow(data.projects, index)}
               >
                 Remove

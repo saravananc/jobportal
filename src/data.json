@@ -1,6 +1,6 @@
 {
   "contact": {
-    "name": " ",
+    "name": "full name",
     "photoUrl": "",
     "location": "",
     "phone": "",
@@ -44,13 +44,8 @@
       "company": "ABC Mobile App Pvt. Ltd.",
       "position": "Backend & Frontend Developer",
       "description": "Created Android applications using Android Studio, Kotlin and React Native."
-    },
-    {
-      "year": "July 2017 - Dec 2017",
-      "company": "Random Company Pvt. Ltd.",
-      "position": "Application Developer",
-      "description": "Created Android applications using Android Studio and Kotlin."
     }
+   
   ],
 
   "certifications": [
@@ -60,14 +55,8 @@
       "course": "Mobile App Development",
       "description": "This training was in the field of android app development.",
       "score": "A+"
-    },
-    {
-      "year": "Jun 2016 - Dev 2016",
-      "institution": "Cisco",
-      "course": "Advanced Networking",
-      "description": "The training program consisted of varoius types of networking technologies, routing techniques, etc",
-      "score": "85%"
     }
+  
   ],
 
   "skills": [
@@ -76,8 +65,7 @@
     "Java",
     "HTML5",
     "CSS",
-    "JavaScript",
-    "jQuery",
+    
     "Node.js"
     
   ],
@@ -87,12 +75,8 @@
       "title": "Project-1",
       "link": "https://project1.myapp.com",
       "description": " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-    },
-    {
-      "title": "Project-2",
-      "link": "https://project-2.random.com",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
     }
+    
   
   ],
 
@@ -102,11 +86,8 @@
     {
       "year": "Sep 2014",
       "description": "Attended a 2-day workshop on Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-    },
-    {
-      "year": "Nov 2018",
-      "description": "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text."
     }
+   
   ]
 
   

@@ -12,14 +12,14 @@ import {
   Chip,
   Typography,
   CardActionArea,
+  Tooltip,
 } from "@mui/material";
 import { Stack } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { useParams } from "react-router-dom";
-import Model from "./Model";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -29,11 +29,15 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const Jobdescription = () => {
+const Jobdescription = ({ isLoggedIn }) => {
+  const navigate = useNavigate();
   const urlParams = useParams();
   const id = urlParams.id;
+
   const [cardData, setCardData] = useState([]);
   const [cardDataJobs, setCardDataJobs] = useState([]);
+
+  const [showTooltip, setShowTooltip] = useState(false);
   useEffect(() => {
     const fetchData = () => {
       fetch(`https://localhost:7138/api/Jobs/${id}`, {
@@ -52,7 +56,7 @@ const Jobdescription = () => {
         .then((data) => {
           console.log("Data fetched successfully:", data);
           const jobData = {
-            id: data.id,
+            id: data.jobId,
             title: data.title,
             companyName: data.companies[0]?.name || "",
             experience: data.openings[0]?.experience || "",
@@ -95,15 +99,38 @@ const Jobdescription = () => {
     fetchData();
   }, [id]);
 
-  const [selectedJob, setSelectedJob] = useState("");
-  const [selectedCompany, setSelectedCompany] = useState("");
+  const handleApply = () => {
+    const jobId = cardData[0].id;
+    const userId = localStorage.getItem("userId");
+    const requestBody = {
+      JobID: jobId,
+      ContactId: userId,
+      applied: true,
+    };
 
-  const handleApply = (job, company) => {
-    setSelectedJob(job);
-    setSelectedCompany(company);
-    // Show the modal popup here
+    fetch("https://localhost:7138/api/AppliedJobs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error occurred during the API call.");
+        }
+      })
+      .then((data) => {
+        console.log("Applied job data:", data);
+        // Perform any additional actions after successfully applying for the job
+      })
+      .catch((error) => {
+        console.error("Error occurred during the API call:", error);
+      });
   };
-
+  
   return (
     <>
       <Box
@@ -112,6 +139,20 @@ const Jobdescription = () => {
           padding: { xs: 0, md: 5 },
         }}
       >
+        <Button
+          variant="contained"
+          size="small"
+          style={{
+            color: "white",
+            backgroundColor: "#6936F5",
+            borderRadius: "10px",
+          }}
+          onClick={() => {
+            navigate("/jobsearch");
+          }}
+        >
+          Back
+        </Button>
         <Grid container spacing={0}>
           <Grid item xs={12} md={8}>
             <Item>
@@ -197,48 +238,88 @@ const Jobdescription = () => {
                           <Typography sx={{ fontSize: "12px" }}>
                             {data.timestamp}
                           </Typography>
-                          {/* <Button
-                            variant="contained"
-                            sx={{
-                              marginLeft: "auto",
-                              borderRadius: "15px",
-                              color: "white",
-                              backgroundColor: "#6936F5",
-                            }}
-                          >
-                            Apply
-                          </Button> */}
-                          <Button
-                            variant="contained"
-                            sx={{
-                              marginLeft: "auto",
-                              borderRadius: "15px",
-                              color: "white",
-                              backgroundColor: "#6936F5",
-                            }}
-                            onClick={() =>
-                              handleApply(data.title, data.companyName)
-                            }
-                          >
-                            Apply
-                          </Button>
+                          {!isLoggedIn && (
+                            <>
+                              {/* <Tooltip
+                                open={showTooltip}
+                                title="Please SIGN IN to apply for the job"
+                                onClose={() => setShowTooltip(false)}
+                                placement="top"
+
+                              >
+                                <Button
+                                  variant="contained"
+                                  sx={{
+                                    marginLeft: "auto",
+                                    borderRadius: "15px",
+                                    color: "white",
+                                    backgroundColor: "#6936F5",
+                                  }}
+                                  onClick={() => setShowTooltip(true)} 
+                                >
+                                  Apply
+                                </Button>
+                              </Tooltip> */}
+                              <Tooltip
+                                open={showTooltip}
+                                onClose={() => setShowTooltip(false)}
+                                placement="top"
+                                title={
+                                  <Typography>
+                                    Please
+                                    <Button
+                                      style={{
+                                        textDecoration: "underline",
+                                        cursor: "pointer",
+                                        color:"blueviolet",
+                                      }}
+                                      onClick={() => {
+                                        navigate("/login");
+                                      }}
+                                    >
+                                      SIGN IN
+                                      </Button>
+                                    to apply for the job.
+                                  </Typography>
+                                }
+                              >
+                                <Button
+                                  variant="contained"
+                                  sx={{
+                                    marginLeft: "auto",
+                                    borderRadius: "15px",
+                                    color: "white",
+                                    backgroundColor: "#6936F5",
+                                  }}
+                                  onClick={() => setShowTooltip(true)}
+                                >
+                                  Apply
+                                </Button>
+                              </Tooltip>
+                            </>
+                          )}
+                          {isLoggedIn && (
+                            <>
+                              <Button
+                                variant="contained"
+                                sx={{
+                                  marginLeft: "auto",
+                                  borderRadius: "15px",
+                                  color: "white",
+                                  backgroundColor: "#6936F5",
+                                }}
+                                onClick={() => handleApply()}
+                              >
+                                Apply
+                              </Button>
+                            </>
+                          )}
                         </CardActions>
                       </Card>
                     </Box>
                   ))
                 ) : (
                   <Typography>No job data available</Typography>
-                )}
-
-                {selectedJob && selectedCompany && (
-                  <Model
-                    job={selectedJob}
-                    company={selectedCompany}
-                    handleClose={() => {
-                      setSelectedJob("");
-                      setSelectedCompany("");
-                    }}
-                  />
                 )}
               </div>
               <div>

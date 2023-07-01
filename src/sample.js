@@ -1,136 +1,202 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LanguageIcon from '@mui/icons-material/Language';
-import SchoolIcon from '@mui/icons-material/School';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
-import CardMembershipIcon from '@mui/icons-material/CardMembership';
-import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import React, { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Chip,
+  Typography,
+  CardActionArea,
+  Tooltip,
+} from "@mui/material";
+import { Stack } from "@mui/material";
+import WorkIcon from "@mui/icons-material/Work";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DescriptionIcon from "@mui/icons-material/Description";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 22,
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    height: 3,
-    border: 0,
-    backgroundColor:
-      theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
-    borderRadius: 1,
-  },
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  color: theme.palette.text.secondary,
 }));
 
-const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#ccc',
-  zIndex: 1,
-  color: ownerState.active ? '#fff' : '#888',
-  width: 50,
-  height: 50,
-  display: 'flex',
-  borderRadius: '50%',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundImage: ownerState.active
-    ? 'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)'
-    : '',
-  boxShadow: ownerState.active ? '0 4px 10px 0 rgba(0,0,0,.25)' : '',
-  ...(ownerState.completed && {
-    backgroundImage:
-      'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-  }),
-}));
+const Jobdescription = () => {
+  const navigate = useNavigate();
+  const urlParams = useParams();
+  const id = urlParams.id;
 
-function ColorlibStepIcon(props) {
-  const { active, completed, className } = props;
+  const [cardData, setCardData] = useState([]);
+  const [cardDataJobs, setCardDataJobs] = useState([]);
+  const [isLogged, setIsLogged] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
-  const icons = {
-    1: <AccountCircleIcon />,
-    2: <LanguageIcon />,
-    3: <SchoolIcon />,
-    4: <BusinessCenterIcon />,
-    5: <CardMembershipIcon />,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://localhost:7138/api/Jobs/${id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Data fetched successfully:", data);
+          const jobData = {
+            id: data.jobId,
+            title: data.title,
+            companyName: data.companies[0]?.name || "",
+            experience: data.openings[0]?.experience || "",
+            salary: data.salary || "",
+            workmode: data.workMode[0]?.name || "",
+            locations: data.openings[0]?.location || "",
+            description: data.description || "",
+            timestamp: data.timestamp || "",
+          };
+          setCardData([jobData]);
+
+          const location = data.openings[0]?.location || "";
+          const locationResponse = await fetch(
+            `https://localhost:7138/api/Jobs?locationOptions=${location}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (locationResponse.ok) {
+            const locationData = await locationResponse.json();
+            console.log("Location-based data fetched successfully:", locationData);
+            setCardDataJobs(locationData);
+          } else {
+            throw new Error("Error occurred during the location API call.");
+          }
+        } else {
+          throw new Error("Error occurred during the main API call.");
+        }
+      } catch (error) {
+        console.error("Error occurred during the API call:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const handleApply = () => {
+    if (!isLogged) {
+      setShowTooltip(true);
+      return;
+    }
+
+    const jobId = cardData[0].id;
+    // Apply logic here
   };
 
   return (
-    <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
-      {icons[String(props.icon)]}
-    </ColorlibStepIconRoot>
+    <div>
+      {cardData.map((card) => (
+        <div key={card.id}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    {card.title}
+                  </Typography>
+                  <Typography variant="body2">
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <WorkIcon fontSize="small" />
+                      {card.companyName}
+                    </Stack>
+                  </Typography>
+                  <Typography variant="body2">
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <CurrencyRupeeIcon fontSize="small" />
+                      {card.salary}
+                    </Stack>
+                  </Typography>
+                  <Typography variant="body2">
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <LocationOnIcon fontSize="small" />
+                      {card.locations}
+                    </Stack>
+                  </Typography>
+                  <Typography variant="body2">
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <DescriptionIcon fontSize="small" />
+                      {card.experience}
+                    </Stack>
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" onClick={handleApply}>
+                    Apply
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Item>
+                <Typography variant="h6">Job Description</Typography>
+                <Typography variant="body1">{card.description}</Typography>
+              </Item>
+            </Grid>
+          </Grid>
+        </div>
+      ))}
+      <Tooltip
+        open={showTooltip}
+        title="Please log in to apply for the job"
+        onClose={() => setShowTooltip(false)}
+        placement="bottom"
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/login")}
+        >
+          Log In
+        </Button>
+      </Tooltip>
+      {cardDataJobs.length > 0 && (
+        <Box mt={4}>
+          <Typography variant="h6">Similar Jobs</Typography>
+          <Grid container spacing={2}>
+            {cardDataJobs.map((job) => (
+              <Grid item xs={12} sm={6} md={4} key={job.jobId}>
+                <CardActionArea
+                  onClick={() => navigate(`/jobdescription/${job.jobId}`)}
+                >
+                  <Card>
+                    <CardContent>
+                      <Typography variant="body1">{job.title}</Typography>
+                      <Typography variant="body2">
+                        {job.companies[0]?.name || ""}
+                      </Typography>
+                      <Typography variant="body2">{job.salary}</Typography>
+                      <Typography variant="body2">{job.openings[0]?.location}</Typography>
+                      <Typography variant="body2">{job.openings[0]?.experience}</Typography>
+                    </CardContent>
+                  </Card>
+                </CardActionArea>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      )}
+    </div>
   );
-}
-
-ColorlibStepIcon.propTypes = {
-  active: PropTypes.bool,
-  className: PropTypes.string,
-  completed: PropTypes.bool,
-  icon: PropTypes.node,
 };
 
-const steps = ['Basic Info', 'Skills', 'Education', 'Experience', 'Certifications'];
-
-export default function CustomizedSteppers() {
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevStep) => prevStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevStep) => prevStep - 1);
-  };
-
-  return (
-    <Stack sx={{ width: '90%' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel
-              StepIconComponent={ColorlibStepIcon}
-              optional={index === activeStep ? (
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    {/* <Button onClick={handleNext} variant="contained" color="primary">
-                      Next
-                    </Button> */}
-                  </Grid>
-                </Grid>
-              ) : null}
-            >
-              {label}
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <Grid container justifyContent="space-between">
-        <Grid item>
-          <Button disabled={activeStep === 0} onClick={handleBack} variant="contained">
-            Back
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button onClick={handleNext} variant="contained" color="primary">
-            Next
-          </Button>
-        </Grid>
-      </Grid>
-    </Stack>
-  );
-}
+export default Jobdescription;

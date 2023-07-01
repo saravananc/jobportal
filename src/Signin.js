@@ -59,19 +59,25 @@ const Signin = ({ onLogin }) => {
     })
     .then((response) => {
       if (response.ok) {
-        console.log("Signin successful", response);
-        onLogin();
-        navigate("/jobsearch");
+        return response.json(); 
       } else {
         throw new Error("Signin failed");
       }
     })
-    
-      .catch((error) => {
-        console.error("Error occurred during Signin", error);
-        setErrorMessage("An error occurred during Signin");
-      });
+    .then((data) => {
+      // console.log("Signin successful", data?.token); 
+      localStorage.setItem("accesstoken", data.token)
+      localStorage.setItem("userId",data.id)
+      // console.log("Signin successful", data?.id); 
+      onLogin();
+      navigate("/jobsearch");
+    })
+    .catch((error) => {
+      console.error("Error occurred during Signin", error);
+      setErrorMessage("An error occurred during Signin");
+    });
   };
+  
 
   return (
     <>
