@@ -240,26 +240,7 @@ const Jobdescription = ({ isLoggedIn }) => {
                           </Typography>
                           {!isLoggedIn && (
                             <>
-                              {/* <Tooltip
-                                open={showTooltip}
-                                title="Please SIGN IN to apply for the job"
-                                onClose={() => setShowTooltip(false)}
-                                placement="top"
-
-                              >
-                                <Button
-                                  variant="contained"
-                                  sx={{
-                                    marginLeft: "auto",
-                                    borderRadius: "15px",
-                                    color: "white",
-                                    backgroundColor: "#6936F5",
-                                  }}
-                                  onClick={() => setShowTooltip(true)} 
-                                >
-                                  Apply
-                                </Button>
-                              </Tooltip> */}
+                            
                               <Tooltip
                                 open={showTooltip}
                                 onClose={() => setShowTooltip(false)}

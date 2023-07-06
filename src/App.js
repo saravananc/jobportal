@@ -9,6 +9,7 @@ import Jobdescription from "./Jobdescription";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppliedJobs from "./AppliedJobs";
+import JobPost from "./JobPost";
 
 function App() {
   const loginValue = localStorage.getItem("accesstoken");
@@ -25,7 +26,8 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <LandingHeader isLoggedIn={isLoggedIn} />
+    {window.location.pathname!=="/jobpost"?
+        <LandingHeader isLoggedIn={isLoggedIn} />:""}
         <Routes>
           <Route path="/" element={<LandingSearch />} />
           <Route
@@ -42,14 +44,14 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
         </Routes>
-        <Footer />
+        {window.location.pathname!=="/jobpost"?
+        <Footer />:""}
+        
+        <Routes>
+        <Route path="/jobpost" element={<JobPost />} />
+        </Routes>
       </BrowserRouter>
-
-      {/* <Jobdescription/> */}
-
-      {/* <LandingSearch /> */}
-      {/* <Signin /> */}
-      {/* <Signup /> */}
+      
     </>
   );
 }

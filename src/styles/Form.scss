@@ -78,7 +78,7 @@
         margin: 10px 0 2px 0;
         width: fit-content;
       }
-      Button {
+      button {
         margin-left: auto;
         margin-top: 10px;
         margin-right: 35px;
@@ -99,11 +99,11 @@
             margin: inherit 10px;
           }
         }
-        Button {
+        button {
           margin: 7px 0;
         }
       }
-      Button {
+      button {
         margin: 10px 0 0 2px;
       }
     }
@@ -130,17 +130,17 @@
 
           }
         }
-        Button {
+        button {
           margin: 7px 0;
           margin-left: 20px;
         }
       }
-      Button {
+      button {
         margin: 0 0 0 2px;
       }
     }
 
-    .projects > Button {
+    .projects > button {
       margin: 0 0 15px 2px;
     }
   }

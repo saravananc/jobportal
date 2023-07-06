@@ -48,7 +48,9 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
-
+import HomeIcon from "@mui/icons-material/Home";
+import PublicIcon from "@mui/icons-material/Public";
+import PlayForWorkIcon from "@mui/icons-material/PlayForWork";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -95,7 +97,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 const JobSearch = () => {
-  
   const navigate = useNavigate();
   const cardStyle = {
     maxWidth: 345,
@@ -120,46 +121,44 @@ const JobSearch = () => {
     fontSize: "40px",
   };
 
-
   const PrettoSlider = styled(Slider)({
-  color: '#6936F5',
-  height: 8,
-  '& .MuiSlider-track': {
-    border: 'none',
-  },
-  '& .MuiSlider-thumb': {
-    height: 24,
-    width: 24,
-    backgroundColor: '#fff',
-    border: '2px solid currentColor',
-    '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
-      boxShadow: 'inherit',
+    color: "#6936F5",
+    height: 8,
+    "& .MuiSlider-track": {
+      border: "none",
     },
-    '&:before': {
-      display: 'none',
+    "& .MuiSlider-thumb": {
+      height: 24,
+      width: 24,
+      backgroundColor: "#fff",
+      border: "2px solid currentColor",
+      "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
+        boxShadow: "inherit",
+      },
+      "&:before": {
+        display: "none",
+      },
     },
-  },
-  '& .MuiSlider-valueLabel': {
-    lineHeight: 1.2,
-    fontSize: 12,
-    background: 'unset',
-    padding: 0,
-    width: 50,
-    height: 50,
-    borderRadius: '50% 50% 50% 0',
-    backgroundColor: '#6936F5',
-    transformOrigin: 'bottom left',
-    transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
-    '&:before': { display: 'none' },
-    '&.MuiSlider-valueLabelOpen': {
-      transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
+    "& .MuiSlider-valueLabel": {
+      lineHeight: 1.2,
+      fontSize: 12,
+      background: "unset",
+      padding: 0,
+      width: 50,
+      height: 50,
+      borderRadius: "50% 50% 50% 0",
+      backgroundColor: "#6936F5",
+      transformOrigin: "bottom left",
+      transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
+      "&:before": { display: "none" },
+      "&.MuiSlider-valueLabelOpen": {
+        transform: "translate(50%, -100%) rotate(-45deg) scale(1)",
+      },
+      "& > *": {
+        transform: "rotate(45deg)",
+      },
     },
-    '& > *': {
-      transform: 'rotate(45deg)',
-    },
-  },
-});
-
+  });
 
   const [expanded, setExpanded] = React.useState("panel1");
 
@@ -524,10 +523,24 @@ const JobSearch = () => {
                                 }
                                 label={data.openings[0].location}
                               />
-                              <Chip
+                              {/* <Chip
                                 sx={{ backgroundColor: "white" }}
                                 icon={
                                   <NavigationIcon style={{ color: "pink" }} />
+                                }
+                                label={data.workMode[0].name}
+                              />
+                            */}
+                              <Chip
+                                sx={{ backgroundColor: "white" }}
+                                icon={
+                                  data.workMode[0].name === "WorkFromHome" ? (
+                                    <HomeIcon style={{ color: "violet" }} />
+                                  ) : data.workMode[0].name === "Remote" ? (
+                                    <PublicIcon style={{ color: "violet" }} />
+                                  ) : (
+                                    <NavigationIcon style={{ color: "violet" }} />
+                                  )
                                 }
                                 label={data.workMode[0].name}
                               />
