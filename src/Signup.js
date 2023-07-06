@@ -8,7 +8,7 @@ import jsonData from './data.json';
 import StepperSignup from './StepperSignup';
 import ResumeSignup from './ResumeSignup';
 import { Box, Typography } from '@mui/material';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 
 const Signup = () => {
   const componentRef = useRef();

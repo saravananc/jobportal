@@ -11,10 +11,7 @@ import {
 } from "@mui/material";
 import {
   TextField,
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
+  Typography,
 } from "@mui/material";
 
 import Files from "react-files";
@@ -33,7 +30,7 @@ import reactCSS from "reactcss";
 import { SketchPicker } from "react-color";
 
 import "../src/styles/Form.scss";
-import { Typography } from "@material-ui/core";
+
 
 const StepperSignup = ({ data, setData, preset, setColor, color }) => {
   const [pickerColor, setPickerColor] = useState();
